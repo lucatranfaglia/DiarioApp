@@ -1,0 +1,36 @@
+{
+    "name": "diarioapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "engines": {
+        "node": "12.x.x",
+        "npm": "6.x.x"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index --exec \"node --require dotenv/config"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "faker": "^5.4.0",
+        "morgan": "^1.10.0",
+        "mysql2": "^2.2.5",
+        "node-fetch": "^2.6.1",
+        "passport": "^0.4.1",
+        "passport-facebook": "^3.0.0",
+        "sequelize": "^6.5.0",
+        "swagger-jsdoc": "^7.0.0-rc.4",
+        "swagger-ui-express": "^4.1.6"
+    },
+    "devDependencies": {
+        "@types/node": "^14.14.31",
+        "nodemon": "^2.0.7",
+        "sequelize-cli": "^6.2.0"
+    }
+}
