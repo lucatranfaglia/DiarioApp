@@ -3,32 +3,45 @@ dotenv.config();
 
 const express = require('express');
 const session = require('express-session');
+
 const path = require('path')
+const logger = require('morgan')
 
-const morgan = require('morgan')
-
-const User = require('./models').User;
-
-const FacebookStrategy = require('passport-facebook').Strategy;
-const passport = require('passport');
-
-
-// CONTROLLER
-const { controllerOAuth } = require('./controller/OAuthController');
+// ------------------------------------
+// FLASH: connect-flash
+// ------------------------------------
+const flash = require('connect-flash');
 
 // ROUTES
 const { routerOAuth } = require('./routes/OAuthRoutes');
 
-// 
+// const { routerLanding } = require('./routes/LandingRoutes');
+
+// LIB
 const { normalizePort, onError, onListening } = require('./lib/server');
 
 const PORT = normalizePort(process.env.PORT || '4000');
 const HOST = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
 
+// SWAGGER
+const swaggerUi = require("swagger-ui-express");
+const { specs } = require('./util/swagger');
+/**
+ * --------------------------------------------------
+ */
+
 class Server {
     // async configs(){
     configs() {
         this.app = express();
+
+        // TEMPLATE ENGINE - REACT
+        this.app.set('views', __dirname + '/views');
+        this.app.set('view engine', 'jsx');
+        this.app.engine('jsx', require('express-react-views').createEngine());
+
+        // FLASH
+        this.app.use(flash());
     }
 
     middlewares() {
@@ -39,46 +52,32 @@ class Server {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
 
-        this.app.use(morgan('combined'))
 
-        this.app.use(passport.initialize());
-        this.app.use(passport.session());
+        // ------------------------------------
+        // HTTP request logger middleware for node.js
+        // ------------------------------------
+        this.app.use(logger('dev'));
 
-        passport.use(new FacebookStrategy({
-                clientID: process.env.CLIENT_ID_FB,
-                clientSecret: process.env.CLIENT_SECRET_FB,
-                callbackURL: "http://localhost:4002/auth/facebook/callback"
-            },
-            function(accessToken, refreshToken, profile, cb) {
-                console.log("AA", accessToken, refreshToken, profile)
-                User.findOrCreate({ facebookId: profile.id }, function(err, user) {
-                    return cb(err, user);
-                });
-            }
-        ));
+        // axios - alias percorso '/axios'
+        this.app.use('/axios', express.static(path.join(__dirname, 'node_modules', 'axios', 'dist')));
 
-        this.app.get('/auth/facebook',
-            passport.authenticate('facebook'));
+        // sweetalert2 - alias del percorso '/sweetalert2'
+        this.app.use('/sweetalert2', express.static(path.join(__dirname, 'node_modules', 'sweetalert2', 'dist')));
 
-        this.app.get('/auth/facebook/callback',
-            passport.authenticate('facebook', { failureRedirect: '/' }),
-            function(req, res) {
-                // Successful authentication, redirect home.
-                res.redirect('/');
-            });
+        this.app.use(
+            "/api-docs",
+            swaggerUi.serve,
+            swaggerUi.setup(specs, { explorer: true })
+        )
 
-        // AUTH        
-        this.app.use('/oauth', routerOAuth(controllerOAuth));
+        // ------------------------------------
+        // ROUTES
+        // ------------------------------------
 
-        // this.app.use('/login-with-facebook', async(req, res) => {
-        //     const { accessToken, userID } = req.body;
-        //     const response = await fetch(`https://graph.facebook.com/v10.0/me?access_token=${accessToken}&method=get&pretty=0`);
-        //     const json = await response.json();
-        //     console.log("res: ", res);
-        //     if (json.userID === userID) {} else {}
-        // });
 
-        this.app.use('/', express.static(path.join(__dirname, 'template')));
+        this.app.use('/', require('./routes/LandingRoutes'));
+        this.app.use('/auth', require('./routes/OAuthRoutes'));
+
     }
 
     main() {

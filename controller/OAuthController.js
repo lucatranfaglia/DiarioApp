@@ -10,9 +10,10 @@ const controllerOAuthGoogle = async(username) => {
 };
 
 
-const controllerOAuthFacebook = async(accessToken, userID) => {
+const controllerOAuthFacebook = async(id, name) => {
     try {
-        await loginFacebook(accessToken, userID);
+        console.log("Controller facebook");
+        await loginFacebook(id, name);
     } catch (error) {
         // use a valid logger
         console.log(error.message);

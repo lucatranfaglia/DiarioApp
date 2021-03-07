@@ -1,13 +1,14 @@
+const { User } = require('../models/user');
+
 /**
  * Login with Facebook
  * 
- * @param accessToken
- * @param userID
+ * @param id
+ * @param name
  */
-const loginFacebook = async(accessToken, userID) => {
+const loginFacebook = async(id, name) => {
     try {
-
-        const results = await checkLoginFacebook(accessToken, userID)
+        const results = await checkLoginFacebook(id, name, social = 'facebook');
 
         if ((results && results != undefined) && (results.affectedRows != '' || results.affectedRows != undefined)) {
             return await results.affectedRows;
@@ -22,11 +23,15 @@ const loginFacebook = async(accessToken, userID) => {
 
 
 //
-const checkLoginFacebook = async(accessToken, userID) => {
+const checkLoginFacebook = async(id, name, social) => {
     try {
-
+        return await User.create({
+            socialId: id,
+            name: name,
+            social: social
+        })
     } catch (e) {
-
+        return e;
     }
 
 }
