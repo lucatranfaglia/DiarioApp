@@ -25,12 +25,14 @@ const { controllerOAuthGoogle, controllerOAuthFacebook } = require('../controlle
  */
 router.post('/facebook', async function(req, res, next) {
     try {
-        console.log("START", req.body);
-        const { id, name } = req.body;
-        if (id != '' && name != '') {
-            const result = await controllerOAuthFacebook(id, name);
+        console.log("body: ", req.body);
+        const socialID = req.body.data.socialID;
+        const name = req.body.data.name;
+        const social = req.body.data.social;
+        if (req.body) {
+            const result = await controllerOAuthFacebook(socialID, social, name);
             res.status(result ? 200 : 404)
-                .json(result ? "AnalisiSocial accountDeleteByUser: connessione avvenuta con successo. " + result : "Error accountDeleteByUser: " + result)
+                .json(result ? "facebook: aggiunto. " : "Error facebook: " + result)
         } else {
             console.log(new Error('Not valid social and username'));
             next(new Error('Not valid social and username')); //pass to error handler

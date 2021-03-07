@@ -1,4 +1,4 @@
-const { User } = require('../models/user');
+const User = require('../models/').User
 
 /**
  * Login with Facebook
@@ -6,12 +6,13 @@ const { User } = require('../models/user');
  * @param id
  * @param name
  */
-const loginFacebook = async(id, name) => {
+const loginFacebook = async(id, social, name) => {
     try {
-        const results = await checkLoginFacebook(id, name, social = 'facebook');
 
-        if ((results && results != undefined) && (results.affectedRows != '' || results.affectedRows != undefined)) {
-            return await results.affectedRows;
+        const results = await checkLoginFacebook(id, social, name);
+
+        if (results) {
+            return await results;
         } else {
             throw new Error('Query not valid.'); //pass to error handler
         }
@@ -23,19 +24,27 @@ const loginFacebook = async(id, name) => {
 
 
 //
-const checkLoginFacebook = async(id, name, social) => {
+const checkLoginFacebook = async(id, social, name) => {
     try {
-        return await User.create({
-            socialId: id,
+        console.log("Repository facebook2", User);
+        const query = await User.create({
+            socialID: id,
             name: name,
             social: social
         })
+        console.log(query.toJSON());
+        return query;
     } catch (e) {
-        return e;
+        console.log("Repository facebook error", e.message);
+        throw new Error(e.message);
     }
-
 }
 
+
+// ritorna tutte le liste con i relativi utenti
+async function getListUser() {
+    return await User.findAll();
+}
 
 
 module.exports = {
