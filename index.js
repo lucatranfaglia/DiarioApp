@@ -4,7 +4,12 @@ dotenv.config();
 const express = require('express');
 const session = require('express-session');
 
+
+const cookieParser = require('cookie-parser');
+
 const path = require('path')
+
+
 const logger = require('morgan')
 
 // ------------------------------------
@@ -12,10 +17,6 @@ const logger = require('morgan')
 // ------------------------------------
 const flash = require('connect-flash');
 
-// ROUTES
-const { routerOAuth } = require('./routes/OAuthRoutes');
-
-// const { routerLanding } = require('./routes/LandingRoutes');
 
 // LIB
 const { normalizePort, onError, onListening } = require('./lib/server');
@@ -42,6 +43,8 @@ class Server {
 
         // FLASH
         this.app.use(flash());
+
+        this.app.use(cookieParser())
     }
 
     middlewares() {
