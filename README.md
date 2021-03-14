@@ -8,8 +8,6 @@
 "dotenv": "^8.2.0",
 
 
-# Typescript
-npm install --save-dev @types/node
 
 
 

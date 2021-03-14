@@ -5,6 +5,18 @@ const express = require('express');
 const session = require('express-session');
 
 
+const ehb = require('express-handlebars');
+// config Engine
+let hbs = ehb.create({
+    defaultLayout: 'main',
+    extname: '.hbs',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
+    }
+});
+
+
 const cookieParser = require('cookie-parser');
 
 const path = require('path')
@@ -38,8 +50,21 @@ class Server {
 
         // TEMPLATE ENGINE - REACT
         this.app.set('views', __dirname + '/views');
-        this.app.set('view engine', 'jsx');
-        this.app.engine('jsx', require('express-react-views').createEngine());
+        this.app.engine('.hbs', hbs.engine);
+        this.app.set('view engine', '.hbs');
+
+        // public (js & css) - alias del percorso '/public'
+        this.app.use('/public', express.static(path.join(__dirname, 'public')));
+
+        // axios - alias percorso '/axios'
+        this.app.use('/axios', express.static(path.join(__dirname, 'node_modules', 'axios', 'dist')));
+
+        // CSS Bootstrap - (rinominiamo il percorso con /bootstrap)
+        this.app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist')));
+
+        // sweetalert2 - alias del percorso '/sweetalert2'
+        this.app.use('/sweetalert2', express.static(path.join(__dirname, 'node_modules', 'sweetalert2', 'dist')));
+
 
         // FLASH
         this.app.use(flash());

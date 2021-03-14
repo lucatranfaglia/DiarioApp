@@ -11,32 +11,40 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node index --exec \"node --require dotenv/config"
     },
-    "author": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lucatranfaglia/expApp.git"
+    },
+    "keywords": [
+        "node",
+        "express"
+    ],
+    "author": "Luca Tranfaglia",
     "license": "ISC",
     "dependencies": {
         "axios": "^0.21.1",
         "bcrypt": "^5.0.1",
+        "bootstrap": "^4.6.0",
         "connect-flash": "^0.1.1",
         "cookie-parser": "^1.4.5",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
-        "express-react-views": "^0.11.0",
+        "express-handlebars": "^5.2.1",
         "express-session": "^1.17.1",
         "faker": "^5.4.0",
+        "google-auth-library": "^7.0.2",
+        "googleapis": "^67.1.1",
         "morgan": "^1.10.0",
         "mysql2": "^2.2.5",
-        "node-fetch": "^2.6.1",
-        "np": "^0.4.1",
         "oauth": "^0.9.15",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1",
+        "package": "^1.0.1",
+        "package.json": "^2.0.1",
         "sequelize": "^6.5.0",
         "swagger-express-jsdoc": "^1.0.4",
         "swagger-ui-express": "^4.1.6",
         "sweetalert2": "^10.15.5"
     },
     "devDependencies": {
-        "@types/node": "^14.14.31",
         "nodemon": "^2.0.7",
         "sequelize-cli": "^6.2.0"
     }

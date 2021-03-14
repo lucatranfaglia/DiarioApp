@@ -1,20 +1,36 @@
 const { loginFacebook } = require('../repository/AuthFacebookRepository');
-const { getTwitterAuthorize, getTwitterAuthenticate, oauthGetUserById, getOAuthAccessTokenWith } = require('../repository/AuthTwitterRepository');
+const { loginGoogle } = require('../repository/AuthGoogleRepository');
+const { getTwitterCallback, getTwitterAuthorize, getTwitterAuthenticate } = require('../repository/AuthTwitterRepository');
 
-const controllerAuthGoogle = async(username) => {
+
+/**
+ * Auth Google - ottengo le info dell'utente tramite il token
+ * @param {string} idtoken 
+ */
+const controllerAuthGoogle = async(idtoken) => {
     try {
+        if (!idtoken) {
+            throw new Error('Google token not found!');
+        }
+        return await loginGoogle(idtoken);
 
     } catch (error) {
-        // use a valid logger
         console.log(error.message);
         throw new Error("Error OAuthGoogle: ", error.message);
     }
 };
 
-
+/**
+ * 
+ * @param {int} id 
+ * @param {string} social 
+ * @param {string} name 
+ */
 const controllerAuthFacebook = async(id, social, name) => {
     try {
-        console.log("Controller facebook", id, social, name);
+        if (!id || !social || !name) {
+            throw new Error('Facebook info not found!');
+        }
         return await loginFacebook(id, social, name);
     } catch (error) {
         console.log(error.message);
@@ -25,29 +41,18 @@ const controllerAuthFacebook = async(id, social, name) => {
 
 const controllerAuthTwitter = async(req, res) => {
     try {
-        console.log("Controller");
-        const { oauthRequestToken, oauthRequestTokenSecret } = req.session
-        const { oauth_verifier: oauthVerifier } = req.query
-
-        const { oauthAccessToken, oauthAccessTokenSecret, results } = await getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
-        req.session.oauthAccessToken = oauthAccessToken;
-
-        console.log("Controller results: ", results);
-        const { user_id: userId /*, screen_name */ } = results;
-        const user = await oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret });
-
-        req.session.twitter_screen_name = user.screen_name
-        res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true })
+        console.log("controllerAuthTwitter");
+        return await getTwitterCallback(req, res);
     } catch (error) {
         console.log(error.message);
         throw new Error(error.message);
     }
 };
 
-const controllerAuthTwitterAuthorize = async() => {
+const controllerAuthTwitterAuthorize = async(req, res) => {
     try {
-        console.log("Controlle");
-        return await getTwitterAuthorize('authorize');
+        console.log("controllerAuthTwitterAuthorize");
+        return await getTwitterAuthorize(req, res);
     } catch (error) {
         console.log(error.message);
         throw new Error(error.message);
@@ -56,7 +61,7 @@ const controllerAuthTwitterAuthorize = async() => {
 
 const controllerAuthTwitterAuthenticate = async(req, res) => {
     try {
-        console.log("Controlle");
+        console.log("controllerAuthTwitterAuthenticate");
         return await getTwitterAuthenticate(req, res);
     } catch (error) {
         console.log(error.message);

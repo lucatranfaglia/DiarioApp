@@ -15,15 +15,35 @@ module.exports = (sequelize, DataTypes) => {
     };
     User.init({
         id: {
-            type: DataTypes.BIGINT,
+            type: DataTypes.BIGINT(100),
             primaryKey: true,
             allowNull: false,
             autoIncrement: true,
         },
-        name: DataTypes.STRING,
-        email: DataTypes.STRING,
-        social: DataTypes.STRING,
-        socialID: DataTypes.NUMBER
+        name: {
+            type: DataTypes.STRING(255),
+            allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING(255),
+            allowNull: true
+        },
+        social: {
+            type: DataTypes.STRING(10),
+            allowNull: false
+        },
+        socialId: {
+            type: DataTypes.BIGINT(100),
+            allowNull: false
+        },
+        locale: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        picture: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
     }, {
         sequelize,
         modelName: 'User',

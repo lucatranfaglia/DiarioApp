@@ -1,12 +1,15 @@
 const { Router } = require('express');
 const router = Router();
-const path = require('path')
 
-router.get('/react', async(req, res) => {
+
+const { loginGoogle } = require('../repository/AuthGoogleRepository');
+
+/**
+ * Homepage
+ */
+router.get('/', async(req, res) => {
     try {
-
-        res.render('index', { name: 'John' });
-
+        res.render('index');
     } catch (error) {
         console.log("Error:", error);
         req.flash('errors', error.errors.map(el => el.message));
@@ -14,15 +17,15 @@ router.get('/react', async(req, res) => {
     }
 })
 
-router.get('/', async(req, res) => {
-    try {
-        res.sendFile(path.join(__dirname + '/../views/index.html'));
-
-    } catch (error) {
-        console.log("Error:", error);
-        req.flash('errors', error.errors.map(el => el.message));
-        res.redirect('/');
-    }
+/**
+ * Distruggo la sessione dalla pagina
+ */
+router.delete("/api/v1/auth/logout", async(req, res) => {
+    req.session.destroy()
+    res.status(200)
+    res.json({
+        message: "Logged out successfully"
+    })
 })
 
 module.exports = router;

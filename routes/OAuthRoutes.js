@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const router = Router();
 
-
 const { controllerAuthGoogle, controllerAuthFacebook, controllerAuthTwitter, controllerAuthTwitterAuthorize, controllerAuthTwitterAuthenticate } = require('../controller/OAuthController');
 
 
@@ -63,26 +62,29 @@ router.post('/facebook', async function(req, res, next) {
  */
 router.post('/google', async function(req, res, next) {
     try {
-
-        if (social != '' && username != '') {
-            const result = await controllerAuthGoogle(social, username);
-            res.status(result ? 200 : 404)
-                .json(result ? "AnalisiSocial accountDeleteByUser: connessione avvenuta con successo. " + result : "Error accountDeleteByUser: " + result)
+        const { idtoken } = req.body;
+        const result = await controllerAuthGoogle(idtoken);
+        if (result) {
+            if (result[0]) {
+                console.log("result:", result[0]);
+                return result[0];
+            } else {
+                console.log("result:", result);
+                return result;
+            }
         } else {
-            console.log(new Error('Not valid social and username'));
-            next(new Error('Not valid social and username')); //pass to error handler
+            throw new Error("login google fail");
         }
     } catch (error) {
-        res.status(500).send("Error oauth google: " + error);
+        console.log("Error:", error);
+        req.flash('errors', error.errors.map(el => el.message));
+        res.redirect('/');
     }
 });
 
-
-
-
 /**
  * @swagger
- * /auth/twitter:
+ * /auth/twitter/callback:
  *   post:
  *     tags:
  *       - AuthTwitter
@@ -98,11 +100,11 @@ router.post('/google', async function(req, res, next) {
  *       200:
  *         description: Successfully created
  */
-router.get('/twitter/', async function(req, res, next) {
+router.get('/twitter/callback', async function(req, res, next) {
     try {
         console.log("START");
         const result = await controllerAuthTwitter(req, res);
-        console.log("result: ", result);
+        console.log("callback: result: ", result);
         return result;
 
     } catch (error) {
@@ -132,9 +134,9 @@ router.get('/twitter/', async function(req, res, next) {
 router.get('/twitter/authorize', async function(req, res, next) {
     try {
         console.log("START");
-        const result = await controllerAuthTwitterAuthorize();
-        console.log("result: ", result);
-
+        const result = await controllerAuthTwitterAuthorize(req, res);
+        console.log("authorize: result: ", result);
+        return result;
     } catch (error) {
         res.status(500).send("Error oauth twitter: " + error);
     }
@@ -144,8 +146,8 @@ router.get('/twitter/authenticate', async function(req, res, next) {
     try {
         console.log("START");
         const result = await controllerAuthTwitterAuthenticate(req, res);
-        console.log("result: ", result);
-
+        console.log("authenticate: result: ", result);
+        return result;
     } catch (error) {
         res.status(500).send("Error oauth twitter: " + error);
     }

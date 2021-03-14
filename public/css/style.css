@@ -1,0 +1,40 @@
+/* Class modal alerts */
+
+.alert {
+    transition: opacity 4s;
+}
+
+.abcRioButtonLightBlue {
+    background-color: #fff;
+    color: #757575;
+}
+
+.button {
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 2px 4px 0px rgba(0, 0, 0, .25);
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 25%);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
+    transition: background-color .218s, border-color .218s, box-shadow .218s;
+    -webkit-user-select: none;
+    -webkit-appearance: none;
+    background-image: none;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: auto;
+}
+
+.margin-top-1 {
+    margin-top: 1em;
+}
+
+.margin-bottom-1 {
+    margin-bottom: 1em;
+}

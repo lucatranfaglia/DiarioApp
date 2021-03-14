@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="googleRespo">
+                        <div id="contentGoogle">
+                            <div class="id"></div>
+                            <div class="name"></div>
+                            <div class="url"></div>
+                            <div class="email"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="facebookResp">
+                        <div id="status"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card social-block">         
+                <div id="loginGoogle" class="margin-top-1 margin-bottom-1">
+                    <div class="col-sm-4">                        
+                        <!-- GOOGLE - Login Button -->
+                        <div class="g-signin2" id="loginGoogle" data-onsuccess="onSignIn"></div>                        
+                    </div>
+                </div>
+                <div id="loginFacebook" class="margin-top-1 margin-bottom-1">
+                    <div class="col-sm-4">                        
+                        <!-- FACEBOOK - The JS SDK Login Button -->
+                        <div class="fb-login-button" scope="public_profile,email" onlogin="checkLoginState();" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                    </div>
+                </div>
+                <div id="loginTwitter" class="margin-top-1 margin-bottom-1">
+                    <div class="col-sm-4">                    
+                        <div class="b04__image  b04__image--fixed">
+                            <a href="/auth/twitter/authenticate">
+                                <!-- TWITTER - Login Button -->
+                                <picture class="button">
+                                    <source srcset="https://cdn.cms-twdigitalassets.com/content/dam/developer-twitter/auth-docs/sign-in-with-twitter-gray.png.twimg.768.png" media="(max-width: 767px)">
+                                    <source srcset="https://cdn.cms-twdigitalassets.com/content/dam/developer-twitter/auth-docs/sign-in-with-twitter-gray.png.twimg.2560.png" media="(min-width: 1920px)">
+                                    <img src="https://cdn.cms-twdigitalassets.com/content/dam/developer-twitter/auth-docs/sign-in-with-twitter-gray.png.twimg.1920.png" style="width: 158px" data-src="https://cdn.cms-twdigitalassets.com/content/dam/developer-twitter/auth-docs/sign-in-with-twitter-gray.png.twimg.1920.png"
+                                        alt="Accedi con il pulsante Twitter" data-object-fit="cover" class="b04__img b04__img-cover b04__img--fixed is-aligned-left lazyloaded">
+                                </picture>
+                            </a>
+                        </div>                                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
