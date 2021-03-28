@@ -1,4 +1,4 @@
-const { normalizePort } = require('../lib/server');
+const { normalizePort } = require('./server');
 
 const PORT = normalizePort(process.env.PORT || '4000');
 const HOST = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';

@@ -55,12 +55,9 @@ class Server {
         this.app.use(cookieParser())
 
         // Session
-        this.app.use(session({ secret: SESSION_SECRET || 'keyboard cat' }));
-
-        this.app.use((req, res, next) => {
-            res.locals.session = req.session;
-            next();
-        });
+        this.app.use(session({
+            secret: SESSION_SECRET || 'secret',
+        }));
 
 
         // TEMPLATE ENGINE - REACT
@@ -98,7 +95,7 @@ class Server {
         // ROUTES
         // ------------------------------------
         this.app.use('/', require('./routes/LandingRoutes'));
-        this.app.use('/auth', require('./routes/OAuthRoutes'));
+        this.app.use('/auth', require('./routes/LoginSocialRoutes'));
     }
 
     main() {

@@ -1,9 +1,6 @@
 const { Router } = require('express');
 const router = Router();
 
-
-const { loginGoogle } = require('../repository/AuthGoogleRepository');
-
 /**
  * Homepage
  */
@@ -11,7 +8,7 @@ router.get('/', async(req, res) => {
     try {
         res.render('index');
     } catch (error) {
-        console.log("Error:", error);
+        console.log("Error / :", error);
         req.flash('errors', error.errors.map(el => el.message));
         res.redirect('/');
     }

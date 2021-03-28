@@ -32,7 +32,6 @@ function createConnection() {
 }
 
 function getConnectionUrl(auth) {
-    console.log("getConnectionUrl: ", auth);
     return auth.generateAuthUrl({
         access_type: 'offline',
         prompt: 'consent',
@@ -41,7 +40,6 @@ function getConnectionUrl(auth) {
 }
 
 function getGooglePlusApi(auth) {
-    console.log("getGooglePlusApi: ", auth);
     return google.plus({ version: 'v1', auth });
 }
 

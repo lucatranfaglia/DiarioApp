@@ -1,4 +1,3 @@
-const { default: axios } = require('axios')
 const oauth = require('oauth')
 
 const { promisify } = require('util')
@@ -16,22 +15,7 @@ const oauthConsumer = new oauth.OAuth(
     'HMAC-SHA1'
 )
 
-async function oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret } = {}) {
-    return promisify(oauthConsumer.get.bind(oauthConsumer))(`https://api.twitter.com/1.1/users/show.json?user_id=${userId}`, oauthAccessToken, oauthAccessTokenSecret)
-        .then(body => JSON.parse(body))
-}
-async function getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier } = {}) {
-    return new Promise((resolve, reject) => {
-
-        console.log("oauthConsumer", oauthConsumer)
-
-        oauthConsumer.getOAuthAccessToken(oauthRequestToken, oauthRequestTokenSecret, oauthVerifier, function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
-            return error ?
-                reject(new Error('Error getting OAuth access token')) :
-                resolve({ oauthAccessToken, oauthAccessTokenSecret, results })
-        })
-    })
-}
+// 1. REQUEST TOKEN
 async function getOAuthRequestToken() {
     return new Promise((resolve, reject) => {
         oauthConsumer.getOAuthRequestToken(function(error, oauthRequestToken, oauthRequestTokenSecret, results) {
@@ -42,25 +26,45 @@ async function getOAuthRequestToken() {
     })
 }
 
-
-async function twitter(req, res, method = 'authorize') {
-    console.log("req: ", method);
-
-
-    console.log("req: ", req);
-
-    console.log(`/twitter/${method}`)
-    const { oauthRequestToken, oauthRequestTokenSecret } = await getOAuthRequestToken()
-    console.log(`/twitter/${method} ->`, { oauthRequestToken, oauthRequestTokenSecret })
-
-
-    const authorizationUrl = `https://api.twitter.com/oauth/${method}?oauth_token=${oauthRequestToken}`
-    console.log('redirecting user to ', authorizationUrl)
-
-    res.redirect
-    const result = await axios.get(authorizationUrl);
-    return result;
+// 2. Access with Token
+async function getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier } = {}) {
+    return new Promise((resolve, reject) => {
+        oauthConsumer.getOAuthAccessToken(oauthRequestToken, oauthRequestTokenSecret, oauthVerifier, function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
+            return error ?
+                reject(new Error('Error getting OAuth access token')) :
+                resolve({ oauthAccessToken, oauthAccessTokenSecret, results })
+        })
+    })
 }
+
+// 3. Get UserById
+async function oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret } = {}) {
+    return promisify(oauthConsumer.get.bind(oauthConsumer))(`https://api.twitter.com/1.1/users/show.json?user_id=${userId}`, oauthAccessToken, oauthAccessTokenSecret)
+        .then(body => JSON.parse(body))
+}
+
+
+
+
+// Method Twitter authorize | authenticate
+async function twitter(req, res, method = 'authorize') {
+    try {
+        // 1. REQUEST TOKEN
+        const { oauthRequestToken, oauthRequestTokenSecret } = await getOAuthRequestToken()
+
+        // 2. AUTH Url
+        const authorizationUrl = `https://api.twitter.com/oauth/${method}?oauth_token=${oauthRequestToken}`
+
+        req.session = req.session || {}
+        req.session.oauthRequestToken = oauthRequestToken
+        req.session.oauthRequestTokenSecret = oauthRequestTokenSecret
+
+        res.redirect(authorizationUrl);
+    } catch (error) {
+        throw new Error("Twitter authorize: ", error);
+    }
+}
+
 
 
 module.exports = {
