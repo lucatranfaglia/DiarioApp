@@ -16,29 +16,26 @@ let hbs = ehb.create({
     }
 });
 
-
 const cookieParser = require('cookie-parser');
 
 const path = require('path')
 
-
 const logger = require('morgan')
 
-// ------------------------------------
-// FLASH: connect-flash
-// ------------------------------------
 const flash = require('connect-flash');
 
 
 // LIB
-const { normalizePort, onError, onListening } = require('./lib/server');
+const { normalizePort, onError, onListening } = require('./utility/server');
+
 
 const PORT = normalizePort(process.env.PORT || '4000');
 const HOST = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
+const SESSION_SECRET = process.env.npm_config_cookie_secret || process.env.SESSION_SECRET
 
 // SWAGGER
 const swaggerUi = require("swagger-ui-express");
-const { specs } = require('./util/swagger');
+const { specs } = require('./utility/swagger');
 /**
  * --------------------------------------------------
  */
@@ -47,6 +44,24 @@ class Server {
     // async configs(){
     configs() {
         this.app = express();
+
+        this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(express.json());
+
+        // Logger
+        this.app.use(logger('dev'));
+
+        // Cookie
+        this.app.use(cookieParser())
+
+        // Session
+        this.app.use(session({ secret: SESSION_SECRET || 'keyboard cat' }));
+
+        this.app.use((req, res, next) => {
+            res.locals.session = req.session;
+            next();
+        });
+
 
         // TEMPLATE ENGINE - REACT
         this.app.set('views', __dirname + '/views');
@@ -65,47 +80,25 @@ class Server {
         // sweetalert2 - alias del percorso '/sweetalert2'
         this.app.use('/sweetalert2', express.static(path.join(__dirname, 'node_modules', 'sweetalert2', 'dist')));
 
-
         // FLASH
         this.app.use(flash());
 
-        this.app.use(cookieParser())
-    }
-
-    middlewares() {
-
-    }
-
-    setRoutes() {
-        this.app.use(express.urlencoded({ extended: true }));
-        this.app.use(express.json());
-
-
-        // ------------------------------------
-        // HTTP request logger middleware for node.js
-        // ------------------------------------
-        this.app.use(logger('dev'));
-
-        // axios - alias percorso '/axios'
-        this.app.use('/axios', express.static(path.join(__dirname, 'node_modules', 'axios', 'dist')));
-
-        // sweetalert2 - alias del percorso '/sweetalert2'
-        this.app.use('/sweetalert2', express.static(path.join(__dirname, 'node_modules', 'sweetalert2', 'dist')));
-
+        // swaggerUi
         this.app.use(
             "/api-docs",
             swaggerUi.serve,
             swaggerUi.setup(specs, { explorer: true })
         )
+    }
 
+    middlewares() {}
+
+    setRoutes() {
         // ------------------------------------
         // ROUTES
         // ------------------------------------
-
-
         this.app.use('/', require('./routes/LandingRoutes'));
         this.app.use('/auth', require('./routes/OAuthRoutes'));
-
     }
 
     main() {

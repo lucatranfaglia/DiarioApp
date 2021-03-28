@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     User.init({
         id: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true,
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         socialId: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: false
         },
         locale: {

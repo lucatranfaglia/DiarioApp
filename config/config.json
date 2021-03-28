@@ -1,11 +1,11 @@
 {
     "development": {
-        "username": "root",
-        "password": "root",
-        "database": "diarioApp",
+        "username": "",
+        "password": "",
+        "database": "diarioapp",
         "host": "127.0.0.1",
-        "dialect": "mysql",
-        "port": 3306
+        "dialect": "postgres",
+        "port": 8889
     },
     "test": {
         "username": "root",
