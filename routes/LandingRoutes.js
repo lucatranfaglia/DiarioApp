@@ -6,7 +6,8 @@ const router = Router();
  */
 router.get('/', async(req, res) => {
     try {
-        res.render('index');
+
+        res.render('index', {});
     } catch (error) {
         console.log("Error / :", error);
         req.flash('errors', error.errors.map(el => el.message));

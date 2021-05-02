@@ -4,7 +4,8 @@ const router = Router();
 const { controllerAuthTwitter, controllerAuthTwitterAuthorize, controllerAuthTwitterAuthenticate } = require('../controller/TwitterController');
 const { controllerAuthFacebook } = require('../controller/FacebookController');
 const { controllerAuthGoogle } = require('../controller/GoogleController');
-
+const { controllerAuthApple } = require('../controller/AppleController');
+const { controllerAuthTwitch } = require('../controller/TwitchController');
 
 router.post('/facebook', async function(req, res, next) {
     try {
@@ -64,6 +65,39 @@ router.get('/twitter/authenticate', async function(req, res, next) {
         res.status(result ? 200 : 404).json(result ? result : "Error callback twitter result")
     } catch (error) {
         res.status(500).send("Error oauth twitter: " + error);
+    }
+});
+
+
+router.get('/apple/authenticate', async function(req, res, next) {
+    try {
+        const result = await controllerAuthApple(req, res);
+        res.status(result ? 200 : 404).json(result ? result : "Error callback Apple result")
+    } catch (error) {
+        res.status(500).send("Error oauth twitter: " + error);
+    }
+});
+
+
+
+router.get('/twitch/authenticate', async function(req, res, next) {
+    try {
+
+        const result = await controllerAuthTwitch(req, res);
+        res.status(result ? 200 : 404).json(result ? result : "Error callback twitch result")
+    } catch (error) {
+        res.status(500).send("Error oauth twitter: " + error);
+    }
+});
+
+
+router.get('/twitch/callback', async function(req, res, next) {
+    try {
+        const { access_token } = req.query;
+        const result = await (req, res);
+        res.status(result ? 200 : 404).json(result ? result : "Error callback twitch result")
+    } catch (error) {
+        res.status(500).send("Error oauth twitch: " + error);
     }
 });
 
