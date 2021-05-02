@@ -1,4 +1,4 @@
-const User = require('../model').User
+const User = require('../models').User
 
 /**
  * Ottengo le informazioni dell'User da Facebook, e salvo il dato
@@ -10,7 +10,8 @@ const controllerAuthFacebook = async(user) => {
         if (!user) {
             throw new Error('Facebook info not found!');
         }
-        return await SaveUserFacebook(user);
+        console.log("user: ", user);
+        return await SaveUserFacebook(user.data);
     } catch (error) {
         console.log("Facebook auth:", error);
         throw new Error("Facebook auth ", error);
@@ -21,13 +22,14 @@ const controllerAuthFacebook = async(user) => {
 /**
  * Save User with Twitter Facebook
  * 
- * @param {object} user
+ * @param {object} users
  */
-const SaveUserFacebook = async(user) => {
+const SaveUserFacebook = async(users) => {
     try {
-        const socialId = user.id;
-        const social = user.social;
-        const name = user.name;
+
+        const socialId = users.socialID;
+        const social = users.social;
+        const name = users.name;
         const user = await User.findOne({
             where: {
                 name,

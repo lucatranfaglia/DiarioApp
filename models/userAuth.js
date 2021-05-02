@@ -3,26 +3,31 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
+    class UserAuth extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // Un'autenticazione appartiene ad uno User
+            UserAuth.hasOne(models.User);
         }
     };
-    User.init({
+    UserAuth.init({
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true,
         },
+        userId: {
+            type: DataTypes.BIGINT(100),
+            allowNull: true
+        },
         name: {
             type: DataTypes.STRING(255),
-            allowNull: false
+            allowNull: true
         },
         email: {
             type: DataTypes.STRING(255),
@@ -30,11 +35,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         social: {
             type: DataTypes.STRING(10),
-            allowNull: false
+            allowNull: true
         },
         socialId: {
             type: DataTypes.BIGINT,
-            allowNull: false
+            allowNull: true
         },
         locale: {
             type: DataTypes.STRING,
@@ -46,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'User',
+        modelName: 'UserAuth',
     });
-    return User;
+    return UserAuth;
 };

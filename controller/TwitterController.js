@@ -4,7 +4,7 @@ const {
     getOAuthRequestToken,
     twitter
 } = require('../utility/authTwitter')
-const User = require('../model').User
+const User = require('../models').User
 
 // TWITTER CALLBACK
 const controllerAuthTwitter = async(req, res) => {
