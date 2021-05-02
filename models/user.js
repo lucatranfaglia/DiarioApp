@@ -15,6 +15,9 @@ module.exports = (DataTypes, DataTypes) => {
 
             // Un utente può avere molti Avvisi
             User.hasMany(models.Avviso);
+
+            // Un utente ha tanti CompitiCasa
+            User.hasMany(models.CompitiCasa);
         }
     };
     User.init({
