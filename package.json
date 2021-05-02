@@ -9,7 +9,7 @@
     },
     "scripts": {
         "start-dev": "NODE_ENV=development nodemon ./app",
-        "start-prod": "NODE_ENV=production nodemon ./app",
+        "start-prod": "NODE_ENV=production nodemon ./app"
     },
     "repository": {
         "type": "git",
