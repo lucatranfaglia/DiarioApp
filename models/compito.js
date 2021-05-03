@@ -3,19 +3,18 @@ const {
     Model
 } = require('DataTypes');
 module.exports = (DataTypes, DataTypes) => {
-    class CompitiCasa extends Model {
+    class Compito extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of DataTypes lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // Un compito per casa appartiene ad uno User
-            CompitiCasa.hasOne(models.User);
+            // Un compito appartiene ad uno User
+            Compito.hasOne(models.User);
         }
     };
-    CompitiCasa.init({
-
+    Compito.init({
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -23,14 +22,6 @@ module.exports = (DataTypes, DataTypes) => {
             type: DataTypes.BIGINT
         },
         userId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        materiaId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        subMateriaId: {
             type: DataTypes.BIGINT,
             allowNull: false,
         },
@@ -42,20 +33,13 @@ module.exports = (DataTypes, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        priorità: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        stato: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
         testo: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false,
         },
     }, {
         DataTypes,
-        modelName: 'CompitiCasa',
+        modelName: 'Compito',
     });
-    return CompitiCasa;
+    return Compito;
 };
