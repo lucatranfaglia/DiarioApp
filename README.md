@@ -38,9 +38,20 @@ npx sequelize-cli model:generate --name Submateria --attributes materiaId:bigint
 
 
 <!-- OrarioScolastico -->
-npx sequelize-cli model:generate --name Submateria --attributes userId:bigint,materiaId:bigint,subMateriaId:bigint,aula:string,giornoSettimana:string,nomeMateria:string,ora:time
+npx sequelize-cli model:generate --name orarioScolastico --attributes userId:bigint,materiaId:bigint,subMateriaId:bigint,aula:string,giornoSettimana:string,nomeMateria:string,ora:time
+
+<!-- Assenza -->
+npx sequelize-cli model:generate --name Assenza --attributes userId:bigint,data:date
+
+<!-- RiduzioneOrarioScolastico (ritardo,entrata,uscita)-->
+npx sequelize-cli model:generate --name RiduzioneOrarioScolastico --attributes userId:bigint,data:date,ritardo:enum,ora:TIME
 
 
+<!-- RiduzioneOrarioScolastico (ritardo,entrata,uscita)-->
+npx sequelize-cli model:generate --name RiduzioneOrarioScolastico --attributes userId:bigint,data:date,ritardo:enum,ora:TIME
+
+<!-- Pagella-->
+npx sequelize-cli model:generate --name Pagella --attributes userId:bigint,materieSet:bigint,data:date,isPagellino:boolean
 
 notifica:integer (0,1,2,3)
 stato:integer
