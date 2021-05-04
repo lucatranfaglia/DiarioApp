@@ -1,39 +1,35 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Avvisos', {
+        await queryInterface.createTable('Votos', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.BIGINT
             },
-            userId: {
+            materiaId: {
                 type: Sequelize.BIGINT,
                 allowNull: false,
             },
-            creationDate: {
-                type: Sequelize.DATE,
+            submateriaId: {
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             data: {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
-            indiceColore: {
+            isOrale: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+            },
+            tipo: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            notifica: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            testo: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            titolo: {
-                type: Sequelize.STRING,
+            voto: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             createdAt: {
@@ -48,13 +44,14 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Avvisos', ['userId']);
-        await queryInterface.addIndex('Avvisos', ['creationDate']);
-        await queryInterface.addIndex('Avvisos', ['notifica']);
-        await queryInterface.addIndex('Avvisos', ['titolo']);
-        await queryInterface.addIndex('Avvisos', ['userId', 'notifica']);
+        await queryInterface.addIndex('Votos', ['materiaId']);
+        await queryInterface.addIndex('Votos', ['submateriaId']);
+        await queryInterface.addIndex('Votos', ['data']);
+        await queryInterface.addIndex('Votos', ['isOrale']);
+        await queryInterface.addIndex('Votos', ['materiaId', 'submateriaId', 'data']);
+        await queryInterface.addIndex('Votos', ['materiaId', 'submateriaId', 'data', 'isOrale']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Avvisos');
+        await queryInterface.dropTable('Votos');
     }
 };

@@ -27,10 +27,42 @@ module.exports = (DataTypes, DataTypes) => {
             primaryKey: true,
             type: DataTypes.BIGINT
         },
+        assenzeSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        avvisiSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        compitiCasaSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        compitiSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        materieSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        orarioScolasticoSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        orarioSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        pagelleSetId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
         isSelected: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
-        }
+        },
     }, {
         DataTypes,
         modelName: 'User',

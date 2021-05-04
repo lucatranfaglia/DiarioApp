@@ -8,6 +8,38 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.BIGINT
             },
+            assenzeSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
+            avvisiSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
+            compitiCasaSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
+            compitiSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
+            materieSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
+            orarioScolasticoSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
+            orarioSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
+            pagelleSetId: {
+                type: Sequelize.BIGINT,
+                allowNull: false,
+            },
             isSelected: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false
