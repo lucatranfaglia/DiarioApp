@@ -20,72 +20,8 @@ module.exports = (DataTypes, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        userId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        compiticaCasaId: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-        },
-        orarioId: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-        },
-        pagellaId: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-        },
-        submaterieSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-        },
-        votiSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-        },
-        colore: {
+        nome: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        dataCompito: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-        dataInterrogazione: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-        dataPratico: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-        giustificazioni: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        nomeMateria: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        notificaCompito: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        notificaInterrogazione: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        notificaPratico: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        professore: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        votoPagella: {
-            type: DataTypes.INTEGER,
             allowNull: false
         },
     }, {

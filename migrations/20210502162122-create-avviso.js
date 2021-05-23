@@ -9,11 +9,7 @@ module.exports = {
                 type: Sequelize.BIGINT
             },
             userId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            creationDate: {
-                type: Sequelize.DATE,
+                type: Sequelize.BIGINT(100),
                 allowNull: false,
             },
             data: {
@@ -48,8 +44,6 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Avvisos', ['userId']);
-        await queryInterface.addIndex('Avvisos', ['creationDate']);
         await queryInterface.addIndex('Avvisos', ['notifica']);
         await queryInterface.addIndex('Avvisos', ['titolo']);
         await queryInterface.addIndex('Avvisos', ['userId', 'notifica']);

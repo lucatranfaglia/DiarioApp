@@ -8,25 +8,14 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            materiaId: {
-                type: Sequelize.BIGINT,
+            materiaUserIdParent: {
+                type: Sequelize.BIGINT(100),
                 allowNull: false,
             },
-            compitiId: {
+            materiaUserIdChild: {
                 type: Sequelize.BIGINT,
                 allowNull: false,
-            },
-            votiId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            orarioId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            nomeSubmateria: {
-                type: Sequelize.STRING,
-                allowNull: false,
+                defaultValue: 0
             },
             createdAt: {
                 allowNull: false,
@@ -40,13 +29,12 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Submateria', ['materiaId']);
-        await queryInterface.addIndex('Submateria', ['compitiId']);
-        await queryInterface.addIndex('Submateria', ['votiId']);
-        await queryInterface.addIndex('Submateria', ['orarioId']);
-        await queryInterface.addIndex('Submateria', ['nomeSubmateria']);
-        await queryInterface.addIndex('Submateria', ['materiaId', 'compitiId', 'votiId', 'orarioId', 'nomeSubmateria']);
-
+        await queryInterface.addIndex('Submateria', ['id']);
+        await queryInterface.addIndex('Submateria', ['materiaUserIdParent']);
+        await queryInterface.addIndex('Submateria', ['materiaUserIdChild']);
+        await queryInterface.addIndex('Submateria', ['id', 'materiaUserIdParent']);
+        await queryInterface.addIndex('Submateria', ['id', 'materiaUserIdChild']);
+        await queryInterface.addIndex('Submateria', ['id', 'materiaUserIdParent', 'materiaUserIdChild']);
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('Submateria');

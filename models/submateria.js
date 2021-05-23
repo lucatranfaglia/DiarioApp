@@ -20,25 +20,14 @@ module.exports = (DataTypes, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        materiaId: {
-            type: DataTypes.BIGINT,
+        materiaUserIdParent: {
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
-        compitiId: {
+        materiaUserIdChild: {
             type: DataTypes.BIGINT,
             allowNull: false,
-        },
-        votiId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        orarioId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        nomeSubmateria: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            defaultValue: 0
         },
     }, {
         DataTypes,

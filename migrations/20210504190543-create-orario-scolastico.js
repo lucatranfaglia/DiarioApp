@@ -8,16 +8,8 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.BIGINT
             },
-            userId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            materiaId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            subMateriaId: {
-                type: Sequelize.BIGINT,
+            materiaUserId: {
+                type: Sequelize.BIGINT(100),
                 allowNull: false,
             },
             aula: {
@@ -25,10 +17,6 @@ module.exports = {
                 allowNull: false,
             },
             giornoSettimana: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            nomeMateria: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
@@ -48,8 +36,13 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('OrarioScolasticos', ['userId']);
-        await queryInterface.addIndex('OrarioScolasticos', ['userId', 'materiaId', 'subMateriaId']);
+        await queryInterface.addIndex('OrarioScolasticos', ['id']);
+        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId']);
+        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'giornoSettimana']);
+        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'ora']);
+        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'aula']);
+        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'aula', 'giornoSettimana']);
+        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'aula', 'giornoSettimana', 'ora']);
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('OrarioScolasticos');

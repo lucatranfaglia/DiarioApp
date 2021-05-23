@@ -3,7 +3,7 @@ const {
     Model
 } = require('DataTypes');
 module.exports = (DataTypes, DataTypes) => {
-    class Pagella extends Model {
+    class MateriaVoti extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of DataTypes lifecycle.
@@ -13,32 +13,41 @@ module.exports = (DataTypes, DataTypes) => {
             // define association here
         }
     };
-    Pagella.init({
+    MateriaVoti.init({
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.BIGINT
         },
-        userId: {
-            type: DataTypes.BIGINT,
+        materiaIdUser: {
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
-        materieSetId: {
-            type: DataTypes.BIGINT,
+        tipologia: {
+            type: DataTypes.ENUM("scritto", "orale", "pratico"),
+            allowNull: false,
+        },
+        giustificazione: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+        voto: {
+            type: DataTypes.FLOAT,
             allowNull: false,
         },
         data: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        isPagellino: {
-            type: DataTypes.BOOLEAN,
+        notifica: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
     }, {
         DataTypes,
-        modelName: 'Pagella',
+        modelName: 'MateriaVoti',
     });
-    return Pagella;
+    return MateriaVoti;
 };

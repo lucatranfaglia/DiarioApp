@@ -20,16 +20,8 @@ module.exports = (DataTypes, DataTypes) => {
             primaryKey: true,
             type: DataTypes.BIGINT
         },
-        userId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        materiaId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        subMateriaId: {
-            type: DataTypes.BIGINT,
+        materiaUserId: {
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
         aula: {
@@ -37,10 +29,6 @@ module.exports = (DataTypes, DataTypes) => {
             allowNull: false,
         },
         giornoSettimana: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        nomeMateria: {
             type: DataTypes.STRING,
             allowNull: false,
         },

@@ -22,11 +22,7 @@ module.exports = (DataTypes, DataTypes) => {
             type: DataTypes.INTEGER
         },
         userId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        creationDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
         data: {

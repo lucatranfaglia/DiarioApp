@@ -6,43 +6,15 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT
+                type: Sequelize.BIGINT(100)
             },
-            assenzeSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
+            userAuthId: {
+                type: Sequelize.BIGINT(100),
+                allowNull: true
             },
-            avvisiSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            compitiCasaSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            compitiSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            materieSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            orarioScolasticoSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            orarioSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            pagelleSetId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            isSelected: {
-                type: Sequelize.BOOLEAN,
-                defaultValue: false
+            nickname: {
+                type: Sequelize.STRING(255),
+                allowNull: true
             },
             createdAt: {
                 allowNull: false,
@@ -55,10 +27,9 @@ module.exports = {
                 defaultValue: Sequelize.fn('NOW')
             }
         });
-
         await queryInterface.addIndex('Users', ['id']);
-        await queryInterface.addIndex('Users', ['isSelected']);
-        await queryInterface.addIndex('Users', ['id', 'isSelected']);
+        await queryInterface.addIndex('Users', ['userAuthId']);
+        await queryInterface.addIndex('Users', ['userAuthId', 'nickname']);
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('Users');

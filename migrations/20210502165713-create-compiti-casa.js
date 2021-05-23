@@ -6,18 +6,10 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT
+                type: Sequelize.BIGINT(100)
             },
-            userId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            materiaId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
-            },
-            subMateriaId: {
-                type: Sequelize.BIGINT,
+            materiaUserId: {
+                type: Sequelize.BIGINT(100),
                 allowNull: false,
             },
             data: {
@@ -37,7 +29,8 @@ module.exports = {
                 allowNull: false,
             },
             testo: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
+                allowNull: true,
             },
             createdAt: {
                 allowNull: false,
@@ -51,15 +44,12 @@ module.exports = {
             }
         });
         await queryInterface.addIndex('CompitiCasas', ['id']);
-        await queryInterface.addIndex('CompitiCasas', ['userId']);
-        await queryInterface.addIndex('CompitiCasas', ['materiaId']);
-        await queryInterface.addIndex('CompitiCasas', ['subMateriaId']);
+        await queryInterface.addIndex('CompitiCasas', ['materiaUserId']);
         await queryInterface.addIndex('CompitiCasas', ['data']);
-        await queryInterface.addIndex('CompitiCasas', ['userId', 'materiaId']);
-        await queryInterface.addIndex('CompitiCasas', ['userId', 'subMateriaId']);
-        await queryInterface.addIndex('CompitiCasas', ['userId', 'data']);
-        await queryInterface.addIndex('CompitiCasas', ['userId', 'priorità']);
-        await queryInterface.addIndex('CompitiCasas', ['userId', 'materiaId', 'subMateriaId']);
+        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'data']);
+        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'stato']);
+        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'testo']);
+        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'priorità']);
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('CompitiCasas');

@@ -9,59 +9,22 @@ module.exports = (DataTypes, DataTypes) => {
          * This method is not a part of DataTypes lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate(models) {
-            // Un utente può avere molte autenticazioni (social, email)
-            User.hasMany(models.UserAuth);
-
-            // Un utente può avere molti Avvisi
-            User.hasMany(models.Avviso);
-
-            // Un utente ha tanti CompitiCasa
-            User.hasMany(models.CompitiCasa);
-        }
+        static associate(models) {}
     };
     User.init({
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.BIGINT
+            type: DataTypes.BIGINT(100)
         },
-        assenzeSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
+        userAuthId: {
+            type: DataTypes.BIGINT(100),
+            allowNull: true
         },
-        avvisiSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        compitiCasaSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        compitiSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        materieSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        orarioScolasticoSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        orarioSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        pagelleSetId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        isSelected: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
+        nickname: {
+            type: DataTypes.STRING(255),
+            allowNull: true
         },
     }, {
         DataTypes,

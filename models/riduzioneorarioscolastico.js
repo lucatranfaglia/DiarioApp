@@ -28,7 +28,7 @@ module.exports = (DataTypes, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        ritardo: {
+        tipologia: {
             type: DataTypes.ENUM("ritardo", "entrata", "uscita"),
             allowNull: false,
         },

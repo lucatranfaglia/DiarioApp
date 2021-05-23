@@ -9,29 +9,17 @@ module.exports = (DataTypes, DataTypes) => {
          * This method is not a part of DataTypes lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate(models) {
-            // Un compito per casa appartiene ad uno User
-            CompitiCasa.hasOne(models.User);
-        }
+        static associate(models) {}
     };
     CompitiCasa.init({
-
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.BIGINT
+            type: DataTypes.BIGINT(100)
         },
-        userId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        materiaId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-        },
-        subMateriaId: {
-            type: DataTypes.BIGINT,
+        materiaUserId: {
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
         data: {
@@ -51,7 +39,8 @@ module.exports = (DataTypes, DataTypes) => {
             allowNull: false,
         },
         testo: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true,
         },
     }, {
         DataTypes,

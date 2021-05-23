@@ -16,7 +16,7 @@ module.exports = {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
-            ritardo: {
+            tipologia: {
                 type: Sequelize.ENUM("ritardo", "entrata", "uscita"),
                 allowNull: false,
             },
@@ -35,10 +35,9 @@ module.exports = {
                 defaultValue: Sequelize.fn('NOW')
             }
         });
-        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId']);
-        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId', 'data']);
-        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId', 'data', 'ritardo']);
-        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId', 'data', 'ritardo', 'ora']);
+
+        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId', 'data', 'tipologia']);
+        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId', 'data', 'tipologia', 'ora']);
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('RiduzioneOrarioScolasticos');
