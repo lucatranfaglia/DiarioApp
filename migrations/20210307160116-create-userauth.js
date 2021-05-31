@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('UsersAuth', {
+        await queryInterface.createTable('UserAuths', {
             id: {
                 type: Sequelize.BIGINT(100),
                 primaryKey: true,
@@ -44,10 +44,10 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('UsersAuth', ['id', 'email']);
-        await queryInterface.addIndex('UsersAuth', ['id', 'social']);
+        await queryInterface.addIndex('UserAuths', ['id', 'email']);
+        await queryInterface.addIndex('UserAuths', ['id', 'social']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('UsersAuth');
+        await queryInterface.dropTable('UserAuths');
     }
 };

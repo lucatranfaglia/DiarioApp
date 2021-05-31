@@ -1,8 +1,8 @@
 'use strict';
 const {
     Model
-} = require('DataTypes');
-module.exports = (DataTypes, DataTypes) => {
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
     class Avviso extends Model {
         /**
          * Helper method for defining associations.
@@ -10,8 +10,7 @@ module.exports = (DataTypes, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // Un avviso appartiene ad un User
-            Avviso.belongsTo(models.User);
+            // Un avviso appartiene ad un User        
         }
     };
     Avviso.init({
@@ -46,7 +45,7 @@ module.exports = (DataTypes, DataTypes) => {
             allowNull: false,
         },
     }, {
-        DataTypes,
+        sequelize,
         modelName: 'Avviso',
     });
     return Avviso;

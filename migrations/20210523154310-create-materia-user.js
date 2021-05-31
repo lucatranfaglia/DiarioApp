@@ -16,24 +16,22 @@ module.exports = {
                 type: Sequelize.BIGINT(100),
                 allowNull: false,
             },
-            professore: {
-                type: Sequelize.STRING,
-                allowNull: true,
+            professoreId: {
+                type: Sequelize.BIGINT(100),
+                allowNull: false,
             },
-            laboratorio: {
-                type: Sequelize.BOOLEAN,
-                allowNull: true,
-                defaultValue: false
+            type: {
+                type: Sequelize.ENUM("aula", "laboratorio"),
+                allowNull: false,
+                defaultValue: "aula"
             },
             giustificazioni: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
-                defaultValue: 0
             },
             crediti: {
                 type: Sequelize.INTEGER,
-                allowNull: true,
-                defaultValue: 0
+                allowNull: true
             },
             createdAt: {
                 allowNull: false,

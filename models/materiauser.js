@@ -18,38 +18,36 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: Sequelize.BIGINT(100)
+            type: DataTypes.BIGINT(100)
         },
         userId: {
-            type: Sequelize.BIGINT(100),
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
         materiaId: {
-            type: Sequelize.BIGINT(100),
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
-        professore: {
-            type: Sequelize.STRING,
+        professoreId: {
+            type: DataTypes.BIGINT(100),
             allowNull: true,
         },
-        laboratorio: {
-            type: Sequelize.BOOLEAN,
-            allowNull: true,
-            defaultValue: false
+        type: {
+            type: DataTypes.ENUM("aula", "laboratorio"),
+            allowNull: false,
+            defaultValue: "aula"
         },
         giustificazioni: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: true,
-            defaultValue: 0
         },
         crediti: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: true,
-            defaultValue: 0
         },
     }, {
         sequelize,
-        modelName: 'MateriaUser',
+        modelName: 'MateriaUser'
     });
     return MateriaUser;
 };

@@ -13,13 +13,8 @@ module.exports = {
                 allowNull: false,
             },
             tipologia: {
-                type: Sequelize.ENUM("scritto", "orale", "pratico"),
+                type: Sequelize.ENUM("scritto", "orale", "pratico", "giustificazione"),
                 allowNull: false,
-            },
-            giustificazione: {
-                type: Sequelize.BOOLEAN,
-                allowNull: false,
-                defaultValue: false
             },
             voto: {
                 type: Sequelize.FLOAT,

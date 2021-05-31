@@ -3,42 +3,42 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class OrarioScolasticos extends Model {
+    class Professore extends Model {
         /**
          * Helper method for defining associations.
-         * This method is not a part of DataTypes lifecycle.
+         * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
             // define association here
         }
     };
-    OrarioScolasticos.init({
+    Professore.init({
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.BIGINT
+            type: DataTypes.BIGINT(100)
         },
-        materiaUserId: {
-            type: DataTypes.BIGINT(100),
-            allowNull: false,
-        },
-        aula: {
+        nome: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
-        giornoSettimana: {
+        cognome: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
-        ora: {
-            type: DataTypes.TIME,
-            allowNull: false,
+        email: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        telefono: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         },
     }, {
         sequelize,
-        modelName: 'OrarioScolasticos',
+        modelName: 'Professore',
     });
-    return OrarioScolasticos;
+    return Professore;
 };
