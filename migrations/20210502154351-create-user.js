@@ -16,9 +16,17 @@ module.exports = {
                 type: Sequelize.BIGINT,
                 allowNull: false
             },
+            status: {
+                type: Sequelize.ENUM('ACTIVE', 'SUSPENDED', 'DELETED'),
+                allowNull: false,
+                defaultValue: 'ACTIVE'
+            },
             nickname: {
                 type: Sequelize.STRING(255),
-                allowNull: true
+                allowNull: true,
+                validate: {
+                    len: [2, 10]
+                }
             },
             anno: {
                 type: Sequelize.INTEGER,
