@@ -18,7 +18,7 @@ module.exports = {
             },
             voto: {
                 type: Sequelize.FLOAT,
-                allowNull: false,
+                allowNull: true,
             },
             data: {
                 type: Sequelize.DATE,

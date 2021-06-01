@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         voto: {
             type: DataTypes.FLOAT,
-            allowNull: false,
+            allowNull: true,
         },
         data: {
             type: DataTypes.DATE,

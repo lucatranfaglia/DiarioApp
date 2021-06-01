@@ -16,11 +16,7 @@ module.exports = {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
-            notifica: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            priorità: {
+            priorita: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
@@ -31,6 +27,10 @@ module.exports = {
             testo: {
                 type: Sequelize.STRING,
                 allowNull: true,
+            },
+            notifica: {
+                type: Sequelize.STRING,
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,

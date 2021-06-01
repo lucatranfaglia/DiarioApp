@@ -26,11 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        notifica: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        priorità: {
+        priorita: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
@@ -41,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
         testo: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        notifica: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
     }, {
         sequelize,

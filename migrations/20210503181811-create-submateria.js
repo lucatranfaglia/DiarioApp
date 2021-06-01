@@ -6,14 +6,14 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.BIGINT(100)
             },
             materiaUserIdParent: {
                 type: Sequelize.BIGINT(100),
                 allowNull: false,
             },
             materiaUserIdChild: {
-                type: Sequelize.BIGINT,
+                type: Sequelize.BIGINT(100),
                 allowNull: false,
                 defaultValue: 0
             },

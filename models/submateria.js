@@ -18,14 +18,14 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.INTEGER
+            type: DataTypes.BIGINT(100)
         },
         materiaUserIdParent: {
             type: DataTypes.BIGINT(100),
             allowNull: false,
         },
         materiaUserIdChild: {
-            type: DataTypes.BIGINT,
+            type: DataTypes.BIGINT(100),
             allowNull: false,
             defaultValue: 0
         },
