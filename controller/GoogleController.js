@@ -1,4 +1,4 @@
-const User = require('../models').User
+const UserAuth = require('../models').UserAuth
 
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_ID)
@@ -25,7 +25,7 @@ const controllerAuthGoogle = async(data) => {
 
 
 /**
- * Save User with Google
+ * Save UserAuth with Google
  * @param {int} idtoken
  */
 const SaveUserGoogle = async(idtoken) => {
@@ -37,31 +37,31 @@ const SaveUserGoogle = async(idtoken) => {
 
         const user = ticket.getPayload();
 
-        const socialId = user.sub;
+        const social_id = user.sub;
         const name = user.name;
         const email = user.email;
         const locale = user.locale;
         const picture = user.picture;
 
-        const saveUser = await User.findOne({
+        const saveUser = await UserAuth.findOne({
             where: {
-                socialId,
+                social_id,
                 social: 'google'
             }
         })
         if (saveUser) {
-            return await User.update({
+            return await UserAuth.update({
                 locale,
                 picture,
             }, {
                 where: {
-                    socialId,
+                    social_id,
                     social: 'google'
                 }
             })
         } else {
-            return await User.create({
-                socialId,
+            return await UserAuth.create({
+                social_id,
                 name,
                 email,
                 locale,

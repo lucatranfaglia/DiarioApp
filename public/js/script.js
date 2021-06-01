@@ -79,7 +79,7 @@ function testAPI() { // Testing Graph API after login.  See statusChangeCallback
 
         const res = axios.post('/auth/facebook', {
             data: {
-                socialID: response.id,
+                social_id: response.id,
                 name: response.name,
                 social: 'facebook'
             },

@@ -4,7 +4,7 @@ const {
     getOAuthRequestToken,
     twitter
 } = require('../utility/authTwitter')
-const User = require('../models').User
+const UserAuth = require('../models').UserAuth
 
 // TWITTER CALLBACK
 const controllerAuthTwitter = async(req, res) => {
@@ -80,30 +80,30 @@ const getTwitterAuthenticate = async(req, res) => {
 const SaveUserTwitter = async(user) => {
     try {
 
-        const socialId = user.id_str;
+        const social_id = user.id_str;
         const name = user.name;
         const locale = user.location;
         const picture = user.profile_image_url;
 
-        const saveUser = await User.findOne({
+        const saveUser = await UserAuth.findOne({
             where: {
-                socialId,
+                social_id,
                 social: 'twitter'
             }
         })
         if (saveUser) {
-            return await User.update({
+            return await UserAuth.update({
                 locale,
                 picture
             }, {
                 where: {
-                    socialId,
+                    social_id,
                     social: 'twitter'
                 }
             })
         } else {
-            return await User.create({
-                socialId,
+            return await UserAuth.create({
+                social_id,
                 name,
                 locale,
                 picture,

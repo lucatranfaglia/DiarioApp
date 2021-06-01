@@ -1,4 +1,4 @@
-const User = require('../models').User
+const UserAuth = require('../models').UserAuth
 
 const axios = require('axios');
 /**

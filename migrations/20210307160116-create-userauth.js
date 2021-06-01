@@ -28,7 +28,7 @@ module.exports = {
             },
             psw: {
                 type: Sequelize.TEXT,
-                allowNull: false
+                allowNull: true
             },
             birth_date: {
                 type: Sequelize.DATE,

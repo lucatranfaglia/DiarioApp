@@ -1,4 +1,4 @@
-const User = require('../models').User
+const UserAuth = require('../models').UserAuth
 
 /**
  * Ottengo le informazioni dell'User da Facebook, e salvo il dato
