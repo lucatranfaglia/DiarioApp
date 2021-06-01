@@ -16,14 +16,14 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.BIGINT(100)
+            type: DataTypes.BIGINT
         },
         userAuthId: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: false
         },
         istitutoId: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: false
         },
         nickname: {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
         anno: {
-            type: DataTypes.INTEGER(5),
+            type: DataTypes.INTEGER,
             allowNull: true
         },
         sezione: {

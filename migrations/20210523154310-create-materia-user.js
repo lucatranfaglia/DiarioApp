@@ -6,22 +6,22 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT(100)
+                type: Sequelize.BIGINT
             },
             userId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             istitutoId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             materiaId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             professoreId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             type: {

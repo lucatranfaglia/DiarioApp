@@ -18,22 +18,22 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.BIGINT(100)
+            type: DataTypes.BIGINT
         },
         userId: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: false,
         },
         istitutoId: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: false,
         },
         materiaId: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: false,
         },
         professoreId: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: true,
         },
         type: {

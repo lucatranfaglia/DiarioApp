@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     UserAuth.init({
         id: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true,

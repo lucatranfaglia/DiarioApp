@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.BIGINT(100)
+            type: DataTypes.BIGINT
         },
         istituto: {
             type: DataTypes.STRING,

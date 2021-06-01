@@ -6,10 +6,10 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT(100)
+                type: Sequelize.BIGINT
             },
             materiaUserId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             aula: {

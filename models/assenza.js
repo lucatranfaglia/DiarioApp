@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.BIGINT(100)
+            type: DataTypes.BIGINT
         },
         userId: {
-            type: DataTypes.BIGINT(100)
+            type: DataTypes.BIGINT
         },
         data: {
             type: DataTypes.DATE

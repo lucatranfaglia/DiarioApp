@@ -6,10 +6,10 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT(100)
+                type: Sequelize.BIGINT
             },
             materiaUserId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             data: {
@@ -43,13 +43,10 @@ module.exports = {
                 defaultValue: Sequelize.fn('NOW')
             }
         });
-        await queryInterface.addIndex('CompitiCasas', ['id']);
-        await queryInterface.addIndex('CompitiCasas', ['materiaUserId']);
-        await queryInterface.addIndex('CompitiCasas', ['data']);
-        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'data']);
-        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'stato']);
-        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'testo']);
-        await queryInterface.addIndex('CompitiCasas', ['materiaUserId', 'priorità']);
+
+        await queryInterface.addIndex('CompitiCasas', ['stato']);
+        await queryInterface.addIndex('CompitiCasas', ['testo']);
+        await queryInterface.addIndex('CompitiCasas', ['priorita']);
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('CompitiCasas');

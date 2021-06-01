@@ -6,14 +6,14 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT(100)
+                type: Sequelize.BIGINT
             },
             istitutoId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: true
             },
             materiaId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: true
             },
             nome: {

@@ -6,14 +6,14 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT(100)
+                type: Sequelize.BIGINT
             },
             userAuthId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false
             },
             istitutoId: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false
             },
             nickname: {
@@ -21,7 +21,7 @@ module.exports = {
                 allowNull: true
             },
             anno: {
-                type: Sequelize.INTEGER(5),
+                type: Sequelize.INTEGER,
                 allowNull: true
             },
             sezione: {

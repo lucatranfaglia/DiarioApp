@@ -9,7 +9,7 @@ module.exports = {
                 type: Sequelize.BIGINT
             },
             materiaIdUser: {
-                type: Sequelize.BIGINT(100),
+                type: Sequelize.BIGINT,
                 allowNull: false,
             },
             tipologia: {

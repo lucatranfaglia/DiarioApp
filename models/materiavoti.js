@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BIGINT
         },
         materiaIdUser: {
-            type: DataTypes.BIGINT(100),
+            type: DataTypes.BIGINT,
             allowNull: false,
         },
         tipologia: {
