@@ -1,34 +1,26 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Professores', {
+        await queryInterface.createTable('Recensiones', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.BIGINT(100)
             },
-            istitutoId: {
+            professoreId: {
                 type: Sequelize.BIGINT(100),
-                allowNull: true
+                allowNull: false,
             },
-            materiaId: {
-                type: Sequelize.BIGINT(100),
-                allowNull: true
-            },
-            nome: {
+            titolo: {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            cognome: {
+            descrizione: {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            email: {
-                type: Sequelize.STRING,
-                allowNull: true,
-            },
-            telefono: {
+            voto: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
             },
@@ -42,12 +34,12 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Professores', ['id']);
-        await queryInterface.addIndex('Professores', ['nome']);
-        await queryInterface.addIndex('Professores', ['cognome']);
-        await queryInterface.addIndex('Professores', ['nome', 'cognome']);
+        await queryInterface.addIndex('Recensiones', ['professoreId']);
+        await queryInterface.addIndex('Recensiones', ['professoreId', 'titolo']);
+        await queryInterface.addIndex('Recensiones', ['professoreId', 'voto']);
+        await queryInterface.addIndex('Recensiones', ['professoreId', 'titolo', 'voto']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Professores');
+        await queryInterface.dropTable('Recensiones');
     }
 };

@@ -10,10 +10,22 @@ module.exports = {
             },
             userAuthId: {
                 type: Sequelize.BIGINT(100),
-                allowNull: true
+                allowNull: false
+            },
+            istitutoId: {
+                type: Sequelize.BIGINT(100),
+                allowNull: false
             },
             nickname: {
                 type: Sequelize.STRING(255),
+                allowNull: true
+            },
+            anno: {
+                type: Sequelize.INTEGER(5),
+                allowNull: true
+            },
+            sezione: {
+                type: Sequelize.STRING(5),
                 allowNull: true
             },
             createdAt: {

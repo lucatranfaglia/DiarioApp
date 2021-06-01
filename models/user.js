@@ -20,10 +20,22 @@ module.exports = (sequelize, DataTypes) => {
         },
         userAuthId: {
             type: DataTypes.BIGINT(100),
-            allowNull: true
+            allowNull: false
+        },
+        istitutoId: {
+            type: DataTypes.BIGINT(100),
+            allowNull: false
         },
         nickname: {
             type: DataTypes.STRING(255),
+            allowNull: true
+        },
+        anno: {
+            type: DataTypes.INTEGER(5),
+            allowNull: true
+        },
+        sezione: {
+            type: DataTypes.STRING(5),
             allowNull: true
         },
     }, {

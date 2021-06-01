@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BIGINT(100)
         },
         professoreId: {
-            type: DataTypes.BIGINT,
+            type: DataTypes.BIGINT(100),
             allowNull: false,
         },
         giorno: {

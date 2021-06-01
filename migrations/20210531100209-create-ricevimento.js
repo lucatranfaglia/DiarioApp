@@ -9,7 +9,7 @@ module.exports = {
                 type: Sequelize.BIGINT(100)
             },
             professoreId: {
-                type: Sequelize.BIGINT
+                type: Sequelize.BIGINT(100)
             },
             giorno: {
                 type: Sequelize.DATE

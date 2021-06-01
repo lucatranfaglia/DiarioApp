@@ -12,6 +12,10 @@ module.exports = {
                 type: Sequelize.BIGINT(100),
                 allowNull: false,
             },
+            istitutoId: {
+                type: Sequelize.BIGINT(100),
+                allowNull: false,
+            },
             materiaId: {
                 type: Sequelize.BIGINT(100),
                 allowNull: false,
