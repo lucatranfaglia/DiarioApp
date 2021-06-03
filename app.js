@@ -96,6 +96,9 @@ class Server {
         // ------------------------------------
         this.app.use('/', require('./routes/LandingRoutes'));
         this.app.use('/auth', require('./routes/LoginSocialRoutes'));
+
+
+        this.app.use('/user', require('./routes/api/UserRouter'));
     }
 
     main() {

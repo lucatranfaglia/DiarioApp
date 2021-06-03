@@ -1,0 +1,66 @@
+<div class="d-flex flex-row justify-content-center">
+    <div class="flex-md-column ">
+        <h1>
+            Inserisci l'Istituto
+        </h1>
+    </div>
+</div>
+<div class="flex-row">
+    <div class="flex-md-column">
+        <form action="/user/istituto/" method="post" onsubmit="userIstituto(this); return false;">
+            {{#each istituti}}
+                <li class="list-group-item" id="li-{{this.id}}">
+                    <div class="form-check">
+                        
+                        <label class="form-check-label" for="defaultCheck1">
+                            {{this.id}}
+                        </label>
+                        <label class="form-check-label" for="defaultCheck1">
+                            {{this.istituto}}
+                        </label>
+                        <label class="form-check-label" for="defaultCheck2">
+                            {{this.localita}}
+                        </label>
+                    </div>
+                    
+                </li>                    
+            {{/each}}
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    // parametro: form
+    async function userIstituto(formTag){        
+        try{
+            console.log("formTag: ", formTag);
+            const res = await axios.post('/user/istituto/new', 
+            {
+                istituto: formTag.istituto.value,
+                localita:formTag.localita.value,
+                
+            });
+
+            console.log("res: ",res.data)
+            Swal.fire({
+                type: "success",
+                text: "User successfully istituto",
+                icon:'success'
+            })
+            .then(()=>{
+                location.href='/';
+            })
+        }
+        catch(error){
+            console.log("res: ",error)
+            // SweerAlert2
+            Swal.fire({
+                title: "Error",
+                text: error,
+                icon:'error'
+            })
+        }
+    }
+
+</script>
