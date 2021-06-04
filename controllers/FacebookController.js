@@ -19,7 +19,7 @@ const controllerAuthFacebook = async(user) => {
 
 
 /**
- * Save User with Twitter Facebook
+ * Save User with Facebook
  * 
  * @param {object} users
  */

@@ -4,7 +4,7 @@ const { Router } = require('express');
 const router = Router();
 
 
-const { saveIstituto, getIstituto, SaveUserChildren } = require('../../controller/User');
+const { saveIstituto, getIstituto, SaveUserChildren } = require('../../controllers/User');
 
 
 // MIDDLEWARE

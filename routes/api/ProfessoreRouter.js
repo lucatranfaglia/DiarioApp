@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const router = Router();
 
-const { infoUser } = require('../../controller/User');
+const { infoUser } = require('../../controllers/User');
 
-const { getProfessori, saveProfessoreUser, saveProfessore } = require('../../controller/Professore');
+const { getProfessori, saveProfessoreUser, saveProfessore } = require('../../controllers/Professore');
 
 /**
  * Professore: lista dei professori

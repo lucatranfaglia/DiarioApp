@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const router = Router();
 
-const { controllerAuthTwitter, controllerAuthTwitterAuthorize, controllerAuthTwitterAuthenticate } = require('../controller/TwitterController');
-const { controllerAuthFacebook } = require('../controller/FacebookController');
-const { controllerAuthGoogle } = require('../controller/GoogleController');
-const { controllerAuthApple } = require('../controller/AppleController');
-const { controllerAuthTwitch } = require('../controller/TwitchController');
+const { controllerAuthTwitter, controllerAuthTwitterAuthorize, controllerAuthTwitterAuthenticate } = require('../controllers/TwitterController');
+const { controllerAuthFacebook } = require('../controllers/FacebookController');
+const { controllerAuthGoogle } = require('../controllers/GoogleController');
+const { controllerAuthApple } = require('../controllers/AppleController');
+const { controllerAuthTwitch } = require('../controllers/TwitchController');
 
 router.post('/facebook', async function(req, res, next) {
     try {

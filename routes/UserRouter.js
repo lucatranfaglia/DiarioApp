@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { saveIstituto, getIstituto } = require('../controller/User');
+const { saveIstituto, getIstituto } = require('../controllers/User');
 
 
 /**

@@ -2,9 +2,9 @@ const { Router } = require('express');
 const router = Router();
 
 
-const { saveMateria, getMateria, SaveMateriaUser } = require('../../controller/Materia');
+const { saveMateria, getMateria, SaveMateriaUser } = require('../../controllers/Materia');
 
-const { infoUser } = require('../../controller/User');
+const { infoUser } = require('../../controllers/User');
 
 
 /**
