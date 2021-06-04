@@ -14,7 +14,7 @@ module.exports = {
             },
             istitutoId: {
                 type: Sequelize.BIGINT,
-                allowNull: false
+                allowNull: true
             },
             status: {
                 type: Sequelize.ENUM('ACTIVE', 'SUSPENDED', 'DELETED'),
@@ -50,6 +50,32 @@ module.exports = {
         await queryInterface.addIndex('Users', ['id']);
         await queryInterface.addIndex('Users', ['userAuthId']);
         await queryInterface.addIndex('Users', ['userAuthId', 'nickname']);
+
+
+        await queryInterface.addConstraint('Users', {
+            fields: ['userAuthId'],
+            type: 'foreign key',
+            name: 'custom_fkey_constraint_userAuth',
+            references: { //Required field
+                table: 'UserAuths',
+                field: 'id'
+            },
+            onDelete: 'NO ACTION',
+            onUpdate: 'NO ACTION'
+        });
+
+        // await queryInterface.addConstraint('Users', {
+        //     fields: ['istitutoId'],
+        //     type: 'foreign key',
+        //     name: 'custom_fkey_constraint_userIstituto',
+        //     references: { //Required field
+        //         table: 'Istitutos',
+        //         field: 'id'
+        //     },
+        //     onDelete: 'NO ACTION',
+        //     onUpdate: 'NO ACTION'
+        // });
+
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('Users');

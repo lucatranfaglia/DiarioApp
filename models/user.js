@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         istitutoId: {
             type: DataTypes.BIGINT,
-            allowNull: false
+            allowNull: true
         },
         status: {
             type: DataTypes.ENUM('ACTIVE', 'SUSPENDED', 'DELETED'),

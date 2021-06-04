@@ -25,6 +25,11 @@ module.exports = {
         });
 
         await queryInterface.addIndex('Materia', ['nome']);
+        await queryInterface.addConstraint('Materia', {
+            fields: ['nome'],
+            type: 'unique',
+            name: 'custom_unique_constraint_materia_name'
+        });
 
     },
     down: async(queryInterface, Sequelize) => {

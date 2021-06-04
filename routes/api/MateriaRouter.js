@@ -4,34 +4,8 @@ const { Router } = require('express');
 const router = Router();
 
 
-const { saveIstituto, getIstituto, SaveUserChildren } = require('../../controller/User');
+const { saveIstituto, getIstituto, SaveUserChildren } = require('../../controller/Materia');
 
-
-// MIDDLEWARE
-const logger = (req, res, next) => {
-    if (req.params != {}) {
-        console.log('calling server with params', req.params);
-    }
-    next();
-}
-
-
-
-
-/**
- * Creo il profilo per figli dell'utente
- */
-router.post('/children/new', async(req, res) => {
-    try {
-
-
-        const istituti = await SaveUserChildren(req.body);
-        res.status(istituti ? 200 : 404).json(istituti ? istituti : "istituti: not found!");
-
-    } catch (error) {
-        res.status(500).send(error.toString());
-    }
-})
 
 
 /**

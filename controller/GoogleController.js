@@ -3,6 +3,7 @@ const UserAuth = require('../models').UserAuth
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_ID)
 
+const { SaveUserLogin } = require('./User');
 
 /**
  * Auth Google - ottengo le info dell'utente tramite il token
@@ -15,8 +16,18 @@ const controllerAuthGoogle = async(data) => {
         if (!idtoken) {
             throw new Error('Google token not found!');
         }
-        return await SaveUserGoogle(idtoken);
 
+        // ottengo l'ID (UserAuths)
+        const authGoogle = await SaveUserGoogle(idtoken);
+
+        const id = authGoogle.id;
+        const name = authGoogle.name;
+
+        // creo un Users con l'ID dello UserAuth
+        const newUser = await SaveUserLogin(id, name);
+
+
+        return authGoogle;
     } catch (error) {
         console.log("OAuthGoogle:", error);
         throw new Error("Error OAuthGoogle: ", error);
@@ -49,8 +60,11 @@ const SaveUserGoogle = async(idtoken) => {
                 social: 'google'
             }
         })
+
+        let idUser;
+
         if (saveUser) {
-            return await UserAuth.update({
+            idUser = await UserAuth.update({
                 locale,
                 picture,
             }, {
@@ -60,7 +74,7 @@ const SaveUserGoogle = async(idtoken) => {
                 }
             })
         } else {
-            return await UserAuth.create({
+            idUser = await UserAuth.create({
                 social_id,
                 name,
                 email,
@@ -69,6 +83,8 @@ const SaveUserGoogle = async(idtoken) => {
                 social: 'google'
             })
         }
+        const id = idUser[0]
+        return { id, name };
 
     } catch (error) {
         console.log("Error SaveUserGoogle: ", error)
