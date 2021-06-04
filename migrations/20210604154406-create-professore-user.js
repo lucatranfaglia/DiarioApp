@@ -12,6 +12,10 @@ module.exports = {
                 type: Sequelize.BIGINT,
                 allowNull: true
             },
+            userId: {
+                type: Sequelize.BIGINT,
+                allowNull: true
+            },
             materiaId: {
                 type: Sequelize.BIGINT,
                 allowNull: true

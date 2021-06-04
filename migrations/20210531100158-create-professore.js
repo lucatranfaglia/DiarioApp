@@ -8,6 +8,10 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.BIGINT
             },
+            istitutoId: {
+                type: Sequelize.BIGINT,
+                allowNull: false
+            },
             nome: {
                 type: Sequelize.STRING,
                 allowNull: true,

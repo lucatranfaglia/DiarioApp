@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BIGINT,
             allowNull: true
         },
+        userId: {
+            type: DataTypes.BIGINT,
+            allowNull: true
+        },
         materiaId: {
             type: DataTypes.BIGINT,
             allowNull: true

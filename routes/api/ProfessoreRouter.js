@@ -23,14 +23,18 @@ router.get('/professori/', async(req, res) => {
 
 
 /**
- * Professore: aggiungo un nuovo professore nel db
+ * Professore: aggiungo un nuovo professore nel db (tramite UserId)
  * @param {bigint} userId
- * @param {bigint} materiaId
  */
-router.post('/new/', async(req, res) => {
+router.post('/new/:userId/', async(req, res) => {
     try {
+
+        const userId = req.params.userId;
+        // ottengo l'istitutoId dal userId
+        const { istitutoId } = await infoUser(userId);
+
         // Salvo una nuova materiaUser
-        const newProfessore = await saveProfessore(req.body);
+        const newProfessore = await saveProfessore(istitutoId, req.body);
 
         res.status(newProfessore ? 200 : 404).json(newProfessore ? newProfessore : "newProfessore: not found!")
     } catch (error) {
@@ -55,9 +59,28 @@ router.post('/new/:userId/:materiaId/:professoreId/', async(req, res) => {
         const { istitutoId } = await infoUser(userId);
 
         // Salvo una nuova materiaUser
-        const newProfessoreUser = await saveProfessoreUser(istitutoId, materiaId, professoreId);
+        const newProfessoreUser = await saveProfessoreUser(istitutoId, userId, materiaId, professoreId);
 
         res.status(newProfessoreUser ? 200 : 404).json(newProfessoreUser ? newProfessoreUser : "newProfessoreUser: not found!")
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
+
+
+/**
+ * Professore: lista di ricevimento rispetto ad un professore
+ * @param {bigint} professoreId
+ */
+router.get('/:professoreId/ricevimento/', async(req, res) => {
+    try {
+        const professoreId = req.params.professoreId;
+
+        // Salvo una nuova materiaUser
+        const newMateriaUser = await SaveMateriaUser(userId, istitutoId, req.body);
+
+        res.status(newMateriaUser ? 200 : 404).json(newMateriaUser ? newMateriaUser : "newMateriaUser: not found!")
     } catch (error) {
         res.status(500).send(error.toString());
     }
@@ -67,7 +90,7 @@ router.post('/new/:userId/:materiaId/:professoreId/', async(req, res) => {
  * MateriaUser: collego la materia allo UserId -> inserimento di una nuova MateriaUser nel db 
  * @param {bigint} userId
  */
-router.post('/:professoreId/ricevimento/', async(req, res) => {
+router.post('/:professoreId/ricevimento/new/', async(req, res) => {
     try {
 
         const professoreId = req.params.professoreId;

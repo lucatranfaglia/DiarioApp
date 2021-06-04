@@ -11,9 +11,10 @@ const ProfessoreUser = require('../models/').ProfessoreUser;
  * @param {bigint} professoreId
  * @returns {object}
  */
-async function saveProfessoreUser(istitutoId, materiaId, professoreId) {
+async function saveProfessoreUser(userId, istitutoId, materiaId, professoreId) {
     try {
         return await ProfessoreUser.create({
+            userId,
             istitutoId,
             materiaId,
             professoreId
@@ -32,9 +33,10 @@ async function saveProfessoreUser(istitutoId, materiaId, professoreId) {
  * @param {integer} telefono
  * @returns {object}
  */
-async function saveProfessore({ nome = null, cognome = null, email = null, telefono = null }) {
+async function saveProfessore(istitutoId, { nome = null, cognome = null, email = null, telefono = null }) {
     try {
         return await Professore.create({
+            istitutoId,
             nome,
             cognome,
             email,

@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.BIGINT
         },
+        istitutoId: {
+            type: DataTypes.BIGINT,
+            allowNull: false
+        },
         nome: {
             type: DataTypes.STRING,
             allowNull: true,

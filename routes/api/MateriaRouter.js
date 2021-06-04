@@ -45,19 +45,20 @@ router.post('/new', async(req, res) => {
 /**
  * MateriaUser: collego la materia allo UserId -> inserimento di una nuova MateriaUser nel db 
  * @param {bigint} userId
- * @param {bigint} istitutoId
+ * @param {bigint} materiaId
+ * @param {bigint} professoreId
  */
-router.post('/user/:userId/', async(req, res) => {
+router.post('/user/:userId/:materiaId/:professoreId/', async(req, res) => {
     try {
-
         const userId = req.params.userId;
+        const materiaId = req.params.materiaId;
+        const professoreId = req.params.professoreId;
 
         // ottengo l'istitutoId dal userId
         const { istitutoId } = await infoUser(userId);
 
-
         // Salvo una nuova materiaUser
-        const newMateriaUser = await SaveMateriaUser(userId, istitutoId, req.body);
+        const newMateriaUser = await SaveMateriaUser(userId, istitutoId, materiaId, professoreId, req.body);
 
         res.status(newMateriaUser ? 200 : 404).json(newMateriaUser ? newMateriaUser : "newMateriaUser: not found!")
     } catch (error) {

@@ -13,7 +13,7 @@ const MateriaUser = require('../models/').MateriaUser;
  * @param {integer} crediti
  * @returns {object}
  */
-async function SaveMateriaUser(userId, istitutoId = null, { materiaId, professoreId = null, type = 'aula', giustificazioni = null, crediti = null }) {
+async function SaveMateriaUser(userId, istitutoId = null, materiaId, professoreId = null, { type = 'aula', giustificazioni = null, crediti = null }) {
     try {
         return await MateriaUser.create({
             userId,
