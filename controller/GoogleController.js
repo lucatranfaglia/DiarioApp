@@ -20,13 +20,12 @@ const controllerAuthGoogle = async(data) => {
         // ottengo l'ID (UserAuths)
         const authGoogle = await SaveUserGoogle(idtoken);
 
+        console.log("authGoogle: ", authGoogle);
         const id = authGoogle.id;
         const name = authGoogle.name;
 
         // creo un Users con l'ID dello UserAuth
         const newUser = await SaveUserLogin(id, name);
-
-
         return authGoogle;
     } catch (error) {
         console.log("OAuthGoogle:", error);
@@ -73,6 +72,11 @@ const SaveUserGoogle = async(idtoken) => {
                     social: 'google'
                 }
             })
+
+            // UPDATE User
+            const id = idUser[0];
+            return { id, name };
+
         } else {
             idUser = await UserAuth.create({
                 social_id,
@@ -82,10 +86,11 @@ const SaveUserGoogle = async(idtoken) => {
                 picture,
                 social: 'google'
             })
-        }
-        const id = idUser[0]
-        return { id, name };
 
+            // NEW user
+            const { id } = idUser;
+            return { id, name };
+        }
     } catch (error) {
         console.log("Error SaveUserGoogle: ", error)
         return error;

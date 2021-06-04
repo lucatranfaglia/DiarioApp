@@ -1,40 +1,23 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('MateriaUsers', {
+        await queryInterface.createTable('ProfessoreUsers', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT
-            },
-            userId: {
-                type: Sequelize.BIGINT,
-                allowNull: false,
+                type: Sequelize.INTEGER
             },
             istitutoId: {
                 type: Sequelize.BIGINT,
-                allowNull: false,
+                allowNull: true
             },
             materiaId: {
                 type: Sequelize.BIGINT,
-                allowNull: false,
+                allowNull: true
             },
             professoreId: {
                 type: Sequelize.BIGINT,
-                allowNull: true,
-            },
-            type: {
-                type: Sequelize.ENUM("aula", "laboratorio"),
-                allowNull: false,
-                defaultValue: "aula"
-            },
-            giustificazioni: {
-                type: Sequelize.INTEGER,
-                allowNull: true,
-            },
-            crediti: {
-                type: Sequelize.INTEGER,
                 allowNull: true
             },
             createdAt: {
@@ -48,6 +31,6 @@ module.exports = {
         });
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('MateriaUsers');
+        await queryInterface.dropTable('ProfessoreUsers');
     }
 };

@@ -8,14 +8,6 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.BIGINT
             },
-            istitutoId: {
-                type: Sequelize.BIGINT,
-                allowNull: true
-            },
-            materiaId: {
-                type: Sequelize.BIGINT,
-                allowNull: true
-            },
             nome: {
                 type: Sequelize.STRING,
                 allowNull: true,
@@ -29,7 +21,7 @@ module.exports = {
                 allowNull: true,
             },
             telefono: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.BIGINT,
                 allowNull: true,
             },
             createdAt: {
@@ -42,10 +34,11 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Professores', ['id']);
-        await queryInterface.addIndex('Professores', ['nome']);
-        await queryInterface.addIndex('Professores', ['cognome']);
-        await queryInterface.addIndex('Professores', ['nome', 'cognome']);
+        await queryInterface.addConstraint('Professores', {
+            fields: ['nome', 'cognome', 'email'],
+            type: 'unique',
+            name: 'custom_unique_constraint_professori'
+        });
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('Professores');

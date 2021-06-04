@@ -99,6 +99,8 @@ class Server {
 
 
         this.app.use('/user', require('./routes/api/UserRouter'));
+        this.app.use('/materia', require('./routes/api/MateriaRouter'));
+        this.app.use('/professore', require('./routes/api/ProfessoreRouter'));
     }
 
     main() {

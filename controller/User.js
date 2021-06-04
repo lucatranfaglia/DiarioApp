@@ -1,6 +1,19 @@
 const Istituto = require('../models/').Istituto;
 const User = require('../models/').User;
 
+/**
+ * Ottengo info dello User tramite ID
+ * @param {bigint} id 
+ * @returns object
+ */
+async function infoUser(id) {
+    try {
+        return await User.findByPk(id);
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 /**
  * Associo l'Id (UserAuths) ad un nuovo User
@@ -75,6 +88,7 @@ async function getIstituto() {
 
 
 module.exports = {
+    infoUser,
     SaveUserLogin,
     SaveUserChildren,
     saveIstituto,

@@ -1,20 +1,19 @@
-const path = require('path');
-
 const { Router } = require('express');
 const router = Router();
 
 
-const { saveIstituto, getIstituto, SaveUserChildren } = require('../../controller/Materia');
+const { saveMateria, getMateria, SaveMateriaUser } = require('../../controller/Materia');
 
+const { infoUser } = require('../../controller/User');
 
 
 /**
- * Istituti - lista di istituti
+ * Materia - lista di materie
  */
-router.get('/istituti', async(req, res) => {
+router.get('/materie', async(req, res) => {
     try {
-        const istituti = await getIstituto();
-        res.status(istituti ? 200 : 404).json(istituti ? istituti : "istituti: not found!");
+        const materie = await getMateria();
+        res.status(materie ? 200 : 404).json(materie ? materie : "materie: not found!");
 
     } catch (error) {
         res.status(500).send(error.toString());
@@ -23,24 +22,55 @@ router.get('/istituti', async(req, res) => {
 
 
 /**
- * Istituto: inserimento di un nuovo istituto nel db (nome dell'istituto e la localita)
- * @param string istituto 
- * @param string localita 
+ * Materia: inserimento di una nuova Materia nel db (nome della materia)
+ * @param string nome 
  */
-router.post('/istituto/new', async(req, res) => {
+router.post('/new', async(req, res) => {
     try {
-        // Salvo un nuovo istituto
-        const { id, istituto, localita } = await saveIstituto(req.body);
+        // Salvo una nuova materia
+        const { id, nome } = await saveMateria(req.body);
 
-        // object - nuovo istituto
-        const new_istituto = { id, istituto, localita };
-
-        res.status(id ? 200 : 404).json(id ? new_istituto : "Error result")
-
+        // object - nuova materia
+        const new_materia = { id, nome };
+        res.status(id ? 200 : 404).json(id ? new_materia : "materia: not found!")
     } catch (error) {
         res.status(500).send(error.toString());
     }
 })
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+/**
+ * MateriaUser: collego la materia allo UserId -> inserimento di una nuova MateriaUser nel db 
+ * @param {bigint} userId
+ * @param {bigint} istitutoId
+ */
+router.post('/user/:userId/', async(req, res) => {
+    try {
+
+        const userId = req.params.userId;
+
+        // ottengo l'istitutoId dal userId
+        const { istitutoId } = await infoUser(userId);
+
+
+        // Salvo una nuova materiaUser
+        const newMateriaUser = await SaveMateriaUser(userId, istitutoId, req.body);
+
+        res.status(newMateriaUser ? 200 : 404).json(newMateriaUser ? newMateriaUser : "newMateriaUser: not found!")
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+
 
 
 

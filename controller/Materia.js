@@ -1,19 +1,28 @@
 const Materia = require('../models/').Materia;
-const MateriaUsers = require('../models/').MateriaUsers;
+const MateriaUser = require('../models/').MateriaUser;
 
 
 /**
- * Associo l'Id (UserAuths) ad un nuovo User
- * @param {bigint} id
- * @param {string} name 
- * @returns object
+ * MateriaUser: inserimento di una nuova MateriaUser nel db tramite UserId
+ * @param {bigint} userId
+ * @param {bigint} istitutoId
+ * @param {bigint} materiaId
+ * @param {bigint} professoreId
+ * @param {ENUM} type
+ * @param {integer} giustificazioni 
+ * @param {integer} crediti
+ * @returns {object}
  */
-async function SaveUserLogin(id, name) {
+async function SaveMateriaUser(userId, istitutoId = null, { materiaId, professoreId = null, type = 'aula', giustificazioni = null, crediti = null }) {
     try {
-        console.log("test : ", id, name);
-        return await User.create({
-            userAuthId: id,
-            nickname: name
+        return await MateriaUser.create({
+            userId,
+            istitutoId,
+            materiaId,
+            professoreId,
+            type,
+            giustificazioni,
+            crediti
         });
     } catch (error) {
         throw error;
@@ -26,7 +35,7 @@ async function SaveUserLogin(id, name) {
  * @param {string} localita
  * @returns {object}
  */
-async function saveMateria(nome) {
+async function saveMateria({ nome }) {
     try {
         return await Materia.create({ nome });
     } catch (error) {
@@ -35,7 +44,7 @@ async function saveMateria(nome) {
 }
 
 /**
- * SELECT - seleziono tutti gli Istituto presenti nel db
+ * SELECT - seleziono tutte le Materia presenti nel db
  * @returns [object]
  */
 async function getMateria() {
@@ -49,8 +58,7 @@ async function getMateria() {
 
 
 module.exports = {
+    SaveMateriaUser,
     saveMateria,
     getMateria,
-    saveIstituto,
-    getIstituto
 }
