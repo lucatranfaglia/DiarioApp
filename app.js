@@ -5,6 +5,8 @@ const express = require('express');
 const session = require('express-session');
 
 
+require('./services/db.service');
+
 const ehb = require('express-handlebars');
 // config Engine
 let hbs = ehb.create({

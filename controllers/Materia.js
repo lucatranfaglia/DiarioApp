@@ -1,5 +1,5 @@
-const Materia = require('../models/').Materia;
-const MateriaUser = require('../models/').MateriaUser;
+const Materia = require('../models').Materia;
+const MateriaUser = require('../models').MateriaUser;
 
 
 /**

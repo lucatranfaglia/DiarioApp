@@ -1,5 +1,5 @@
-const Professore = require('../models/').Professore;
-const ProfessoreUser = require('../models/').ProfessoreUser;
+const Professore = require('../models').Professore;
+const ProfessoreUser = require('../models').ProfessoreUser;
 
 
 
@@ -11,7 +11,7 @@ const ProfessoreUser = require('../models/').ProfessoreUser;
  * @param {bigint} professoreId
  * @returns {object}
  */
-async function saveProfessoreUser(userId, istitutoId, materiaId, professoreId) {
+async function saveProfessoreUser(istitutoId, userId, materiaId, professoreId) {
     try {
         return await ProfessoreUser.create({
             userId,

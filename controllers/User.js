@@ -1,5 +1,5 @@
-const Istituto = require('../models/').Istituto;
-const User = require('../models/').User;
+const Istituto = require('../models').Istituto;
+const User = require('../models').User;
 
 /**
  * Ottengo info dello User tramite ID
