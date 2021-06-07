@@ -1,6 +1,7 @@
 'use strict';
 const Sequelize = require('sequelize');
 
+const db = {};
 /**
  * Create connection
  */
@@ -33,6 +34,7 @@ sequelize.authenticate()
 
 sequelize.sync({ force: true });
 
-module.exports = {
-    sequelize
-}
+db.sequelize = sequelize
+db.Sequelize = Sequelize
+
+module.exports = db

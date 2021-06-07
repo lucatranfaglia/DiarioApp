@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
         },
         descrizione: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         voto: {

@@ -17,7 +17,7 @@ module.exports = {
                 allowNull: true,
             },
             descrizione: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
                 allowNull: true,
             },
             voto: {
