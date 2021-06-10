@@ -100,9 +100,20 @@ class Server {
         this.app.use('/auth', require('./routes/LoginSocialRoutes'));
 
 
-        this.app.use('/user', require('./routes/api/UserRouter'));
-        this.app.use('/materia', require('./routes/api/MateriaRouter'));
-        this.app.use('/professore', require('./routes/api/ProfessoreRouter'));
+        this.app.use('/user', require('./routes/api/UserRoutes'));
+        this.app.use('/materia', require('./routes/api/MateriaRoutes'));
+        this.app.use('/professore', require('./routes/api/ProfessoreRoutes'));
+
+        this.app.use('/avviso', require('./routes/api/AvvisoRoutes'));
+        this.app.use('/assenza', require('./routes/api/AssenzaRoutes'));
+        this.app.use('/ros', require('./routes/api/RosRoutes'));
+
+        this.app.use('/voti', require('./routes/api/MateriaVotiRoutes'));
+
+
+        this.app.use('/compiti', require('./routes/api/CompitiCasaRoutes'));
+        this.app.use('/orario', require('./routes/api/OrarioScolasticoRoutes'));
+        this.app.use('/submateria', require('./routes/api/SubMateriaRoutes'));
     }
 
     main() {

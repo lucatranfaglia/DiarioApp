@@ -33,12 +33,12 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         ora: {
-            type: DataTypes.TIME,
+            type: DataTypes.FLOAT,
             allowNull: false,
         },
     }, {
         sequelize,
-        modelName: 'RiduzioneOrarioScolastico',
+        freezeTableName: true
     });
     return RiduzioneOrarioScolastico;
 };

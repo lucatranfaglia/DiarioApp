@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Professores', {
+        await queryInterface.createTable('Professore', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -38,13 +38,13 @@ module.exports = {
             }
         });
 
-        await queryInterface.addConstraint('Professores', {
+        await queryInterface.addConstraint('Professore', {
             fields: ['nome', 'cognome', 'email'],
             type: 'unique',
             name: 'custom_unique_constraint_professori'
         });
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Professores');
+        await queryInterface.dropTable('Professore');
     }
 };

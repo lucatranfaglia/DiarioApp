@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('UserAuths', {
+        await queryInterface.createTable('UserAuth', {
             id: {
                 type: Sequelize.BIGINT,
                 primaryKey: true,
@@ -122,15 +122,15 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('UserAuths', ['id']);
-        await queryInterface.addIndex('UserAuths', ['name']);
-        await queryInterface.addIndex('UserAuths', ['surname']);
-        await queryInterface.addIndex('UserAuths', ['username']);
-        await queryInterface.addIndex('UserAuths', ['id', 'status']);
-        await queryInterface.addIndex('UserAuths', ['id', 'email']);
-        await queryInterface.addIndex('UserAuths', ['id', 'social']);
+        await queryInterface.addIndex('UserAuth', ['id']);
+        await queryInterface.addIndex('UserAuth', ['name']);
+        await queryInterface.addIndex('UserAuth', ['surname']);
+        await queryInterface.addIndex('UserAuth', ['username']);
+        await queryInterface.addIndex('UserAuth', ['id', 'status']);
+        await queryInterface.addIndex('UserAuth', ['id', 'email']);
+        await queryInterface.addIndex('UserAuth', ['id', 'social']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('UserAuths');
+        await queryInterface.dropTable('UserAuth');
     }
 };

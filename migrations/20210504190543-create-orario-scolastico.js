@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('OrarioScolasticos', {
+        await queryInterface.createTable('OrarioScolastico', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -17,10 +17,14 @@ module.exports = {
                 allowNull: false,
             },
             giornoSettimana: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM('Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'),
                 allowNull: false,
             },
-            ora: {
+            ora_inizio: {
+                type: Sequelize.TIME,
+                allowNull: false,
+            },
+            ora_fine: {
                 type: Sequelize.TIME,
                 allowNull: false,
             },
@@ -36,15 +40,9 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('OrarioScolasticos', ['id']);
-        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId']);
-        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'giornoSettimana']);
-        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'ora']);
-        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'aula']);
-        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'aula', 'giornoSettimana']);
-        await queryInterface.addIndex('OrarioScolasticos', ['materiaUserId', 'aula', 'giornoSettimana', 'ora']);
+        await queryInterface.addIndex('OrarioScolastico', ['materiaUserId', 'aula', 'giornoSettimana', 'ora_inizio', 'ora_fine']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('OrarioScolasticos');
+        await queryInterface.dropTable('OrarioScolastico');
     }
 };

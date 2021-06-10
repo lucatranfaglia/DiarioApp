@@ -1,5 +1,5 @@
-const Materia = require('../models').Materia;
-const MateriaUser = require('../models').MateriaUser;
+const { Materia } = require('../models');
+const { MateriaUser } = require('../models');
 
 
 /**
@@ -13,7 +13,7 @@ const MateriaUser = require('../models').MateriaUser;
  * @param {integer} crediti
  * @returns {object}
  */
-async function SaveMateriaUser(userId, istitutoId = null, materiaId, professoreId = null, { type = 'aula', giustificazioni = null, crediti = null }) {
+async function saveMateriaUser(userId, istitutoId = null, materiaId, professoreId = null, { type = 'aula', giustificazioni = null, crediti = null }) {
     try {
         return await MateriaUser.create({
             userId,
@@ -58,7 +58,7 @@ async function getMateria() {
 
 
 module.exports = {
-    SaveMateriaUser,
+    saveMateriaUser,
     saveMateria,
     getMateria,
 }

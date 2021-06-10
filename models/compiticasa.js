@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         stato: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.ENUM("nuovo", "dacompletare", "completato"),
             allowNull: false,
         },
         testo: {
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'CompitiCasa',
+        freezeTableName: true
     });
     return CompitiCasa;
 };

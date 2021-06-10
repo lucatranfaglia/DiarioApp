@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Istituto',
+        freezeTableName: true
     });
     return Istituto;
 };

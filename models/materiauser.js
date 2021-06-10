@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'MateriaUser'
+        freezeTableName: true
     });
     return MateriaUser;
 };

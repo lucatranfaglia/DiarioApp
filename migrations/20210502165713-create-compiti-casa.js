@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('CompitiCasas', {
+        await queryInterface.createTable('CompitiCasa', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -21,7 +21,7 @@ module.exports = {
                 allowNull: false,
             },
             stato: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.ENUM("nuovo", "dacompletare", "completato"),
                 allowNull: false,
             },
             testo: {
@@ -44,11 +44,11 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('CompitiCasas', ['stato']);
-        await queryInterface.addIndex('CompitiCasas', ['testo']);
-        await queryInterface.addIndex('CompitiCasas', ['priorita']);
+        await queryInterface.addIndex('CompitiCasa', ['stato']);
+        await queryInterface.addIndex('CompitiCasa', ['testo']);
+        await queryInterface.addIndex('CompitiCasa', ['priorita']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('CompitiCasas');
+        await queryInterface.dropTable('CompitiCasa');
     }
 };

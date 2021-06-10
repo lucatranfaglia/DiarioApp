@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Avvisos', {
+        await queryInterface.createTable('Avviso', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -44,11 +44,11 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Avvisos', ['notifica']);
-        await queryInterface.addIndex('Avvisos', ['titolo']);
-        await queryInterface.addIndex('Avvisos', ['userId', 'notifica']);
+        await queryInterface.addIndex('Avviso', ['notifica']);
+        await queryInterface.addIndex('Avviso', ['titolo']);
+        await queryInterface.addIndex('Avviso', ['userId', 'notifica']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Avvisos');
+        await queryInterface.dropTable('Avviso');
     }
 };

@@ -8,7 +8,7 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.BIGINT
             },
-            materiaIdUser: {
+            materiaUserId: {
                 type: Sequelize.BIGINT,
                 allowNull: false,
             },
@@ -39,8 +39,8 @@ module.exports = {
                 defaultValue: Sequelize.fn('NOW')
             }
         });
-        await queryInterface.addIndex('MateriaVoti', ['materiaIdUser']);
-        await queryInterface.addIndex('MateriaVoti', ['materiaIdUser', 'tipologia', 'data', 'notifica']);
+        await queryInterface.addIndex('MateriaVoti', ['materiaUserId']);
+        await queryInterface.addIndex('MateriaVoti', ['materiaUserId', 'tipologia', 'data', 'notifica']);
     },
     down: async(queryInterface, Sequelize) => {
         await queryInterface.dropTable('MateriaVoti');

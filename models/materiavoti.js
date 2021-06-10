@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.BIGINT
         },
-        materiaIdUser: {
+        materiaUserId: {
             type: DataTypes.BIGINT,
             allowNull: false,
         },
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'MateriaVoti',
+        freezeTableName: true
     });
     return MateriaVoti;
 };

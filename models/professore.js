@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Professore',
+        freezeTableName: true
     });
     return Professore;
 };

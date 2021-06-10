@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Recensione',
+        freezeTableName: true
     });
     return Recensione;
 };

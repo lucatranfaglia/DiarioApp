@@ -4,7 +4,7 @@ const { Router } = require('express');
 const router = Router();
 
 
-const { saveIstituto, getIstituto, SaveUserChildren } = require('../../controllers/User');
+const { saveIstituto, getIstituto, saveUserChildren } = require('../../controllers/User');
 
 
 // MIDDLEWARE
@@ -25,7 +25,7 @@ router.post('/children/new', async(req, res) => {
     try {
 
 
-        const istituti = await SaveUserChildren(req.body);
+        const istituti = await saveUserChildren(req.body);
         res.status(istituti ? 200 : 404).json(istituti ? istituti : "istituti: not found!");
 
     } catch (error) {

@@ -3,7 +3,7 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class OrarioScolasticos extends Model {
+    class OrarioScolastico extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of DataTypes lifecycle.
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
         }
     };
-    OrarioScolasticos.init({
+    OrarioScolastico.init({
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -29,16 +29,20 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         giornoSettimana: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'),
             allowNull: false,
         },
-        ora: {
+        ora_inizio: {
+            type: DataTypes.TIME,
+            allowNull: false,
+        },
+        ora_fine: {
             type: DataTypes.TIME,
             allowNull: false,
         },
     }, {
         sequelize,
-        modelName: 'OrarioScolasticos',
+        freezeTableName: true
     });
-    return OrarioScolasticos;
+    return OrarioScolastico;
 };

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Recensiones', {
+        await queryInterface.createTable('Recensione', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -34,12 +34,12 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Recensiones', ['professoreId']);
-        await queryInterface.addIndex('Recensiones', ['professoreId', 'titolo']);
-        await queryInterface.addIndex('Recensiones', ['professoreId', 'voto']);
-        await queryInterface.addIndex('Recensiones', ['professoreId', 'titolo', 'voto']);
+        await queryInterface.addIndex('Recensione', ['professoreId']);
+        await queryInterface.addIndex('Recensione', ['professoreId', 'titolo']);
+        await queryInterface.addIndex('Recensione', ['professoreId', 'voto']);
+        await queryInterface.addIndex('Recensione', ['professoreId', 'titolo', 'voto']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Recensiones');
+        await queryInterface.dropTable('Recensione');
     }
 };

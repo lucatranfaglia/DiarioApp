@@ -21,7 +21,7 @@ async function infoUser(id) {
  * @param {string} name 
  * @returns object
  */
-async function SaveUserLogin(id, name) {
+async function saveUserLogin(id, name) {
     try {
         console.log("test : ", id, name);
         return await User.create({
@@ -43,7 +43,7 @@ async function SaveUserLogin(id, name) {
  * @param {string} sezione ?
  * @returns object
  */
-async function SaveUserChildren({ idParent, nickname, istitutoId, anno = null, sezione = null }) {
+async function saveUserChildren({ idParent, nickname, istitutoId, anno = null, sezione = null }) {
     try {
 
         return await User.create({
@@ -89,8 +89,8 @@ async function getIstituto() {
 
 module.exports = {
     infoUser,
-    SaveUserLogin,
-    SaveUserChildren,
+    saveUserLogin,
+    saveUserChildren,
     saveIstituto,
     getIstituto
 }

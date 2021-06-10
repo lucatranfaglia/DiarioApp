@@ -122,7 +122,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'UserAuth',
+        freezeTableName: true
     });
     return UserAuth;
 };

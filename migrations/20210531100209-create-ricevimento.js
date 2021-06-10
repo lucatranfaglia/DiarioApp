@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Ricevimentos', {
+        await queryInterface.createTable('Ricevimento', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -38,12 +38,12 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('Ricevimentos', ['ora_inizio']);
-        await queryInterface.addIndex('Ricevimentos', ['ora_fine']);
-        await queryInterface.addIndex('Ricevimentos', ['giorno', 'ora_inizio', 'ora_fine']);
-        await queryInterface.addIndex('Ricevimentos', ['professoreId', 'giorno', 'ora_inizio']);
+        await queryInterface.addIndex('Ricevimento', ['ora_inizio']);
+        await queryInterface.addIndex('Ricevimento', ['ora_fine']);
+        await queryInterface.addIndex('Ricevimento', ['giorno', 'ora_inizio', 'ora_fine']);
+        await queryInterface.addIndex('Ricevimento', ['professoreId', 'giorno', 'ora_inizio']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Ricevimentos');
+        await queryInterface.dropTable('Ricevimento');
     }
 };

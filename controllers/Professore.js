@@ -163,9 +163,9 @@ async function getProfessoriRicevimentoByUserId(userId) {
                     "Professore"."nome",
                     "Professore"."cognome",
                     "Ricevimento".* 
-                FROM "ProfessoreUsers" as "User", 
-                    "Ricevimentos" as "Ricevimento",
-                    "Professores" as "Professore" 
+                FROM "ProfessoreUser" as "User", 
+                    "Ricevimento",
+                    "Professore"
                 WHERE "User"."userId" =:userId  
                     AND "Ricevimento"."professoreId"="User"."professoreId"
                     AND "Professore"."id"="User"."professoreId"

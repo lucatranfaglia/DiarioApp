@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Users', {
+        await queryInterface.createTable('User', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -47,24 +47,24 @@ module.exports = {
                 defaultValue: Sequelize.fn('NOW')
             }
         });
-        await queryInterface.addIndex('Users', ['id']);
-        await queryInterface.addIndex('Users', ['userAuthId']);
-        await queryInterface.addIndex('Users', ['userAuthId', 'nickname']);
+        await queryInterface.addIndex('User', ['id']);
+        await queryInterface.addIndex('User', ['userAuthId']);
+        await queryInterface.addIndex('User', ['userAuthId', 'nickname']);
 
 
-        await queryInterface.addConstraint('Users', {
+        await queryInterface.addConstraint('User', {
             fields: ['userAuthId'],
             type: 'foreign key',
             name: 'custom_fkey_constraint_userAuth',
             references: { //Required field
-                table: 'UserAuths',
+                table: 'UserAuth',
                 field: 'id'
             },
             onDelete: 'NO ACTION',
             onUpdate: 'NO ACTION'
         });
 
-        // await queryInterface.addConstraint('Users', {
+        // await queryInterface.addConstraint('User', {
         //     fields: ['istitutoId'],
         //     type: 'foreign key',
         //     name: 'custom_fkey_constraint_userIstituto',
@@ -78,6 +78,6 @@ module.exports = {
 
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Users');
+        await queryInterface.dropTable('User');
     }
 };

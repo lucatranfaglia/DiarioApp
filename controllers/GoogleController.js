@@ -3,7 +3,7 @@ const UserAuth = require('../models').UserAuth
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_ID)
 
-const { SaveUserLogin } = require('./User');
+const { saveUserLogin } = require('./User');
 
 /**
  * Auth Google - ottengo le info dell'utente tramite il token
@@ -25,7 +25,7 @@ const controllerAuthGoogle = async(data) => {
         const name = authGoogle.name;
 
         // creo un Users con l'ID dello UserAuth
-        const newUser = await SaveUserLogin(id, name);
+        const newUser = await saveUserLogin(id, name);
         return authGoogle;
     } catch (error) {
         console.log("OAuthGoogle:", error);

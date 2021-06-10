@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('Istitutos', {
+        await queryInterface.createTable('Istituto', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -25,17 +25,17 @@ module.exports = {
                 type: Sequelize.DATE
             }
         });
-        await queryInterface.addIndex('Istitutos', ['istituto']);
-        await queryInterface.addIndex('Istitutos', ['localita']);
-        await queryInterface.addIndex('Istitutos', ['istituto', 'localita']);
+        await queryInterface.addIndex('Istituto', ['istituto']);
+        await queryInterface.addIndex('Istituto', ['localita']);
+        await queryInterface.addIndex('Istituto', ['istituto', 'localita']);
 
-        await queryInterface.addConstraint('Istitutos', {
+        await queryInterface.addConstraint('Istituto', {
             fields: ['istituto', 'localita'],
             type: 'unique',
             name: 'custom_unique_constraint_name'
         });
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Istitutos');
+        await queryInterface.dropTable('Istituto');
     }
 };

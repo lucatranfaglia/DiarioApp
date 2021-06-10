@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('RiduzioneOrarioScolasticos', {
+        await queryInterface.createTable('RiduzioneOrarioScolastico', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -21,7 +21,7 @@ module.exports = {
                 allowNull: false,
             },
             ora: {
-                type: Sequelize.TIME,
+                type: Sequelize.FLOAT,
                 allowNull: false,
             },
             createdAt: {
@@ -36,10 +36,10 @@ module.exports = {
             }
         });
 
-        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId', 'data', 'tipologia']);
-        await queryInterface.addIndex('RiduzioneOrarioScolasticos', ['userId', 'data', 'tipologia', 'ora']);
+        await queryInterface.addIndex('RiduzioneOrarioScolastico', ['userId', 'data', 'tipologia']);
+        await queryInterface.addIndex('RiduzioneOrarioScolastico', ['userId', 'data', 'tipologia', 'ora']);
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('RiduzioneOrarioScolasticos');
+        await queryInterface.dropTable('RiduzioneOrarioScolastico');
     }
 };

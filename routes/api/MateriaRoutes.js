@@ -2,7 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 
-const { saveMateria, getMateria, SaveMateriaUser } = require('../../controllers/Materia');
+const { saveMateria, getMateria, saveMateriaUser } = require('../../controllers/Materia');
 
 const { infoUser } = require('../../controllers/User');
 
@@ -58,7 +58,7 @@ router.post('/user/:userId/:materiaId/:professoreId/', async(req, res) => {
         const { istitutoId } = await infoUser(userId);
 
         // Salvo una nuova materiaUser
-        const newMateriaUser = await SaveMateriaUser(userId, istitutoId, materiaId, professoreId, req.body);
+        const newMateriaUser = await saveMateriaUser(userId, istitutoId, materiaId, professoreId, req.body);
 
         res.status(newMateriaUser ? 200 : 404).json(newMateriaUser ? newMateriaUser : "newMateriaUser: not found!")
     } catch (error) {
