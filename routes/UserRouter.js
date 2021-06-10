@@ -28,10 +28,10 @@ router.post('/istituto/new', async(req, res) => {
 
         // const {name, email, password} = req.body;
         console.log("req.body: ", req.body);
-        const { id, istituto, localita } = await saveIstituto(req.body);
+        const { id, istituto, citta } = await saveIstituto(req.body);
 
         // object
-        const User = { id, istituto, localita };
+        const User = { id, istituto, citta };
 
         // verificare se l'utente è loggato
         req.session.user = User

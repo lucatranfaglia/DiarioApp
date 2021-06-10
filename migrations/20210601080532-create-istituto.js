@@ -12,7 +12,7 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            localita: {
+            citta: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
@@ -26,11 +26,11 @@ module.exports = {
             }
         });
         await queryInterface.addIndex('Istituto', ['istituto']);
-        await queryInterface.addIndex('Istituto', ['localita']);
-        await queryInterface.addIndex('Istituto', ['istituto', 'localita']);
+        await queryInterface.addIndex('Istituto', ['citta']);
+        await queryInterface.addIndex('Istituto', ['istituto', 'citta']);
 
         await queryInterface.addConstraint('Istituto', {
-            fields: ['istituto', 'localita'],
+            fields: ['istituto', 'citta'],
             type: 'unique',
             name: 'custom_unique_constraint_name'
         });

@@ -1,6 +1,11 @@
 'use strict';
+
+const User = require('../models/user');
+const MateriaUser = require('../models/materiauser');
+const Istituto = require('../models/istituto');
 const {
-    Model
+    Model,
+    Deferrable
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class ProfessoreUser extends Model {
@@ -22,15 +27,57 @@ module.exports = (sequelize, DataTypes) => {
         },
         istitutoId: {
             type: DataTypes.BIGINT,
-            allowNull: true
+            allowNull: true,
+            // references: {
+            //     // This is a reference to another model
+            //     model: Istituto,
+
+            //     // This is the column name of the referenced model
+            //     key: 'id',
+
+            //     // With PostgreSQL, it is optionally possible to declare when to check the foreign key constraint, passing the Deferrable type.
+            //     deferrable: Deferrable.INITIALLY_IMMEDIATE
+            //         // Options:
+            //         // - `Deferrable.INITIALLY_IMMEDIATE` - Immediately check the foreign key constraints
+            //         // - `Deferrable.INITIALLY_DEFERRED` - Defer all foreign key constraint check to the end of a transaction
+            //         // - `Deferrable.NOT` - Don't defer the checks at all (default) - This won't allow you to dynamically change the rule in a transaction
+            // }
         },
         userId: {
             type: DataTypes.BIGINT,
-            allowNull: true
+            allowNull: true,
+            // references: {
+            //     // This is a reference to another model
+            //     model: User,
+
+            //     // This is the column name of the referenced model
+            //     key: 'id',
+
+            //     // With PostgreSQL, it is optionally possible to declare when to check the foreign key constraint, passing the Deferrable type.
+            //     deferrable: Deferrable.INITIALLY_IMMEDIATE
+            //         // Options:
+            //         // - `Deferrable.INITIALLY_IMMEDIATE` - Immediately check the foreign key constraints
+            //         // - `Deferrable.INITIALLY_DEFERRED` - Defer all foreign key constraint check to the end of a transaction
+            //         // - `Deferrable.NOT` - Don't defer the checks at all (default) - This won't allow you to dynamically change the rule in a transaction
+            // }
         },
-        materiaId: {
+        materiaUserId: {
             type: DataTypes.BIGINT,
-            allowNull: true
+            allowNull: true,
+            // references: {
+            //     // This is a reference to another model
+            //     model: MateriaUser,
+
+            //     // This is the column name of the referenced model
+            //     key: 'id',
+
+            //     // With PostgreSQL, it is optionally possible to declare when to check the foreign key constraint, passing the Deferrable type.
+            //     deferrable: Deferrable.INITIALLY_IMMEDIATE
+            //         // Options:
+            //         // - `Deferrable.INITIALLY_IMMEDIATE` - Immediately check the foreign key constraints
+            //         // - `Deferrable.INITIALLY_DEFERRED` - Defer all foreign key constraint check to the end of a transaction
+            //         // - `Deferrable.NOT` - Don't defer the checks at all (default) - This won't allow you to dynamically change the rule in a transaction
+            // }
         },
         professoreId: {
             type: DataTypes.BIGINT,

@@ -11,6 +11,16 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Submateria.belongsTo(models.MateriaUser, {
+                foreignKey: 'materiaUserIdParent',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
+            Submateria.belongsTo(models.MateriaUser, {
+                foreignKey: 'materiaUserIdChild',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     Submateria.init({
@@ -22,14 +32,24 @@ module.exports = (sequelize, DataTypes) => {
         },
         materiaUserIdParent: {
             type: DataTypes.BIGINT,
-            allowNull: false,
+            allowNull: false
         },
         materiaUserIdChild: {
             type: DataTypes.BIGINT,
             allowNull: false,
-            defaultValue: 0
+            defaultValue: 0,
         },
     }, {
+        indexes: [{
+            unique: false,
+            fields: ['materiaUserIdParent']
+        }, {
+            unique: false,
+            fields: ['materiaUserIdChild']
+        }, {
+            unique: false,
+            fields: ['materiaUserIdParent', 'materiaUserIdChild']
+        }],
         sequelize,
         freezeTableName: true
     });

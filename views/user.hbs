@@ -19,7 +19,7 @@
                             {{this.istituto}}
                         </label>
                         <label class="form-check-label" for="defaultCheck2">
-                            {{this.localita}}
+                            {{this.citta}}
                         </label>
                     </div>
                     
@@ -38,7 +38,7 @@
             const res = await axios.post('/user/istituto/new', 
             {
                 istituto: formTag.istituto.value,
-                localita:formTag.localita.value,
+                citta:formTag.citta.value,
                 
             });
 

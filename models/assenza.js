@@ -1,6 +1,8 @@
 'use strict';
+
 const {
-    Model
+    Model,
+    Deferrable
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Assenza extends Model {
@@ -10,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // define association here            
+            Assenza.belongsTo(models.User, {
+                foreignKey: 'userId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     Assenza.init({
@@ -21,12 +28,23 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BIGINT
         },
         userId: {
-            type: DataTypes.BIGINT
+            type: DataTypes.BIGINT,
+            allowNull: false,
         },
         data: {
             type: DataTypes.DATE
         },
     }, {
+        indexes: [{
+            unique: false,
+            fields: ['userId']
+        }, {
+            unique: false,
+            fields: ['data']
+        }, {
+            unique: false,
+            fields: ['userId', 'data']
+        }],
         sequelize,
         freezeTableName: true
     });

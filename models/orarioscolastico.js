@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            OrarioScolastico.belongsTo(models.MateriaUser, {
+                foreignKey: 'materiaUserId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     OrarioScolastico.init({
@@ -41,6 +46,35 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
+        indexes: [{
+                unique: false,
+                fields: ['materiaUserId']
+            }, {
+                unique: false,
+                fields: ['aula']
+            }, {
+                unique: false,
+                fields: ['giornoSettimana']
+            }, {
+                unique: false,
+                fields: ['ora_inizio']
+            },
+            {
+                unique: false,
+                fields: ['ora_fine']
+            }, {
+                unique: false,
+                fields: ['materiaUserId', 'aula']
+            },
+            {
+                unique: false,
+                fields: ['materiaUserId', 'giornoSettimana']
+            },
+            {
+                unique: false,
+                fields: ['materiaUserId', 'giornoSettimana', 'aula']
+            }
+        ],
         sequelize,
         freezeTableName: true
     });

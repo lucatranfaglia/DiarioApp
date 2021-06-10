@@ -9,7 +9,13 @@ module.exports = (sequelize, DataTypes) => {
          * This method is not a part of DataTypes lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate(models) {}
+        static associate(models) {
+            CompitiCasa.belongsTo(models.MateriaUser, {
+                foreignKey: 'materiaUserId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
+        }
     };
     CompitiCasa.init({
         id: {
@@ -39,10 +45,32 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
         },
         notifica: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
     }, {
+        indexes: [{
+            unique: false,
+            fields: ['materiaUserId']
+        }, {
+            unique: false,
+            fields: ['data']
+        }, {
+            unique: false,
+            fields: ['priorita']
+        }, {
+            unique: false,
+            fields: ['stato']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'data']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'priorita']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'data', 'priorita']
+        }, ],
         sequelize,
         freezeTableName: true
     });

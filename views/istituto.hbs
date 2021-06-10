@@ -13,8 +13,8 @@
             </div>
 
             <div class="form-group">
-                <label for="localita">Città</label>
-                <input type="text" class="form-control" id="localita" name="localita" placeholder="Inserisci citta" minlength="3" required >
+                <label for="citta">Città</label>
+                <input type="text" class="form-control" id="citta" name="citta" placeholder="Inserisci citta" minlength="3" required >
                 
             </div> 
             <div class="form-group text-center">
@@ -36,7 +36,7 @@
             const res = await axios.post('/user/istituto/new', 
             {
                 istituto: formTag.istituto.value,
-                localita:formTag.localita.value,
+                citta:formTag.citta.value,
                 
             });
 

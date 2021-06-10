@@ -43,11 +43,11 @@ async function saveUserLogin(id, name) {
  * @param {string} sezione ?
  * @returns object
  */
-async function saveUserChildren({ idParent, nickname, istitutoId, anno = null, sezione = null }) {
+async function saveUserChildren(userAuthId, { nickname, istitutoId, anno = null, sezione = null }) {
     try {
 
         return await User.create({
-            userAuthId: idParent,
+            userAuthId,
             nickname,
             istitutoId,
             anno,
@@ -62,12 +62,12 @@ async function saveUserChildren({ idParent, nickname, istitutoId, anno = null, s
 /**
  * ADD - aggiungo un nuovo Istituto nel db e lo associa all'utente
  * @param {string} istituto
- * @param {string} localita
+ * @param {string} citta
  * @returns {object}
  */
-async function saveIstituto({ istituto, localita }) {
+async function saveIstituto({ istituto, citta }) {
     try {
-        return await Istituto.create({ istituto, localita });
+        return await Istituto.create({ istituto, citta });
     } catch (error) {
         throw error;
     }

@@ -1,6 +1,11 @@
 'use strict';
+const User = require('../models/user');
+const Istituto = require('../models/istituto');
+const Materia = require('../models/materia');
+const ProfessoreUser = require('../models/professoreuser');
 const {
-    Model
+    Model,
+    Deferrable
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class MateriaUser extends Model {
@@ -11,6 +16,26 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            MateriaUser.belongsTo(models.User, {
+                foreignKey: 'userId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
+            MateriaUser.belongsTo(models.Istituto, {
+                foreignKey: 'istitutoId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
+            MateriaUser.belongsTo(models.Materia, {
+                foreignKey: 'materiaId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
+            MateriaUser.belongsTo(models.Professore, {
+                foreignKey: 'professoreId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     MateriaUser.init({
@@ -50,6 +75,32 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
         },
     }, {
+
+        indexes: [{
+            unique: false,
+            fields: ['userId']
+        }, {
+            unique: false,
+            fields: ['istitutoId']
+        }, {
+            unique: false,
+            fields: ['materiaId']
+        }, {
+            unique: false,
+            fields: ['professoreId']
+        }, {
+            unique: false,
+            fields: ['type']
+        }, {
+            unique: false,
+            fields: ['userId', 'materiaId']
+        }, {
+            unique: false,
+            fields: ['userId', 'professoreId']
+        }, {
+            unique: false,
+            fields: ['userId', 'materiaId', 'professoreId']
+        }],
         sequelize,
         freezeTableName: true
     });

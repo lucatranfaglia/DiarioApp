@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            MateriaVoti.belongsTo(models.MateriaUser, {
+                foreignKey: 'materiaUserId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     MateriaVoti.init({
@@ -41,6 +46,37 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
+        indexes: [{
+            unique: false,
+            fields: ['materiaUserId']
+        }, {
+            unique: false,
+            fields: ['tipologia']
+        }, {
+            unique: false,
+            fields: ['voto']
+        }, {
+            unique: false,
+            fields: ['data']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'tipologia']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'voto']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'data']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'tipologia', 'data']
+        }, {
+            unique: false,
+            fields: ['materiaUserId', 'tipologia', 'voto']
+        }, , {
+            unique: false,
+            fields: ['materiaUserId', 'tipologia', 'voto', 'data']
+        }],
         sequelize,
         freezeTableName: true
     });

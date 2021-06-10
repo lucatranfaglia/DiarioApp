@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Istituto.belongsTo(models.Istruzione, {
+                foreignKey: 'istruzioneId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     Istituto.init({
@@ -20,15 +25,46 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.BIGINT
         },
+        istruzioneId: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
         istituto: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        localita: {
+        citta: {
             type: DataTypes.STRING,
             allowNull: false,
         },
     }, {
+        indexes: [{
+                unique: false,
+                fields: ['istruzioneId']
+            }, {
+                unique: false,
+                fields: ['istituto']
+            }, {
+                unique: false,
+                fields: ['citta']
+            }, {
+                unique: false,
+                fields: ['istituto', 'citta']
+            },
+            {
+                unique: false,
+                fields: ['istruzioneId', 'citta']
+            },
+
+            {
+                unique: false,
+                fields: ['istruzioneId', 'istituto']
+            },
+            {
+                unique: false,
+                fields: ['istruzioneId', 'istituto', 'citta']
+            }
+        ],
         sequelize,
         freezeTableName: true
     });

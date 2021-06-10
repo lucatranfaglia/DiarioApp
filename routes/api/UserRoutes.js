@@ -21,12 +21,11 @@ const logger = (req, res, next) => {
 /**
  * Creo il profilo per figli dell'utente
  */
-router.post('/children/new', async(req, res) => {
+router.post('/:userAuthId/children/new/', async(req, res) => {
     try {
-
-
-        const istituti = await saveUserChildren(req.body);
-        res.status(istituti ? 200 : 404).json(istituti ? istituti : "istituti: not found!");
+        const userAuthId = req.params.userAuthId;
+        const newUserChild = await saveUserChildren(userAuthId, req.body);
+        res.status(newUserChild ? 200 : 404).json(newUserChild ? newUserChild : "newUserChild: not found!");
 
     } catch (error) {
         res.status(500).send(error.toString());
@@ -49,17 +48,17 @@ router.get('/istituti', async(req, res) => {
 
 
 /**
- * Istituto: inserimento di un nuovo istituto nel db (nome dell'istituto e la localita)
+ * Istituto: inserimento di un nuovo istituto nel db (nome dell'istituto e la citta)
  * @param string istituto 
- * @param string localita 
+ * @param string citta 
  */
 router.post('/istituto/new', async(req, res) => {
     try {
         // Salvo un nuovo istituto
-        const { id, istituto, localita } = await saveIstituto(req.body);
+        const { id, istituto, citta } = await saveIstituto(req.body);
 
         // object - nuovo istituto
-        const new_istituto = { id, istituto, localita };
+        const new_istituto = { id, istituto, citta };
 
         res.status(id ? 200 : 404).json(id ? new_istituto : "Error result")
 

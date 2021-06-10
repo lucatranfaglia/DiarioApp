@@ -1,6 +1,7 @@
 'use strict';
 const {
-    Model
+    Model,
+    Deferrable
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Professore extends Model {
@@ -11,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Professore.belongsTo(models.Istituto, {
+                foreignKey: 'istitutoId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     Professore.init({
@@ -22,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         istitutoId: {
             type: DataTypes.BIGINT,
-            allowNull: false
+            allowNull: false,
         },
         nome: {
             type: DataTypes.STRING,
@@ -41,6 +47,27 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
         },
     }, {
+        indexes: [{
+                unique: false,
+                fields: ['istitutoId']
+            }, {
+                unique: false,
+                fields: ['nome']
+            }, {
+                unique: false,
+                fields: ['cognome']
+            }, {
+                unique: false,
+                fields: ['email']
+            }, {
+                unique: false,
+                fields: ['istitutoId', 'nome']
+            },
+            {
+                unique: false,
+                fields: ['istitutoId', 'cognome']
+            }
+        ],
         sequelize,
         freezeTableName: true
     });

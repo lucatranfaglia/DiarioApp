@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Ricevimento.belongsTo(models.Professore, {
+                foreignKey: 'professoreId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     Ricevimento.init({
@@ -41,6 +46,31 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
+        indexes: [{
+            unique: false,
+            fields: ['professoreId']
+        }, {
+            unique: false,
+            fields: ['giorno']
+        }, {
+            unique: false,
+            fields: ['ora_inizio']
+        }, {
+            unique: false,
+            fields: ['ora_fine']
+        }, {
+            unique: false,
+            fields: ['luogo']
+        }, {
+            unique: false,
+            fields: ['professoreId', 'giorno']
+        }, {
+            unique: false,
+            fields: ['professoreId', 'giorno', 'ora_inizio']
+        }, {
+            unique: false,
+            fields: ['professoreId', 'giorno', 'ora_inizio', 'ora_fine']
+        }],
         sequelize,
         freezeTableName: true
     });

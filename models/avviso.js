@@ -1,6 +1,8 @@
 'use strict';
+const User = require('../models/user');
 const {
-    Model
+    Model,
+    Deferrable
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Avviso extends Model {
@@ -11,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // Un avviso appartiene ad un User        
+            Avviso.belongsTo(models.User, {
+                foreignKey: 'userId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     Avviso.init({
@@ -45,6 +52,34 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
+        indexes: [{
+            unique: false,
+            fields: ['userId']
+        }, {
+            unique: false,
+            fields: ['data']
+        }, {
+            unique: false,
+            fields: ['indiceColore']
+        }, {
+            unique: false,
+            fields: ['notifica']
+        }, {
+            unique: false,
+            fields: ['testo']
+        }, {
+            unique: false,
+            fields: ['titolo']
+        }, {
+            unique: false,
+            fields: ['userId', 'data']
+        }, {
+            unique: false,
+            fields: ['userId', 'notifica']
+        }, {
+            unique: false,
+            fields: ['userId', 'data', 'notifica']
+        }],
         sequelize,
         freezeTableName: true
     });

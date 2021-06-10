@@ -1,6 +1,7 @@
 'use strict';
 const {
-    Model
+    Model,
+    Deferrable
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class RiduzioneOrarioScolastico extends Model {
@@ -11,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            RiduzioneOrarioScolastico.belongsTo(models.User, {
+                foreignKey: 'userId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
         }
     };
     RiduzioneOrarioScolastico.init({
@@ -37,6 +43,25 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
+        indexes: [{
+            unique: false,
+            fields: ['userId']
+        }, {
+            unique: false,
+            fields: ['data']
+        }, {
+            unique: false,
+            fields: ['tipologia']
+        }, {
+            unique: false,
+            fields: ['userId', 'data']
+        }, {
+            unique: false,
+            fields: ['userId', 'data', 'tipologia']
+        }, {
+            unique: false,
+            fields: ['userId', 'tipologia']
+        }],
         sequelize,
         freezeTableName: true
     });

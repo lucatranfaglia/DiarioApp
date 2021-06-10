@@ -121,6 +121,31 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: {}
         },
     }, {
+
+        indexes: [{
+                unique: false,
+                fields: ['name']
+            }, {
+                unique: false,
+                fields: ['surname']
+            },
+            {
+                unique: false,
+                fields: ['username']
+            },
+            {
+                unique: false,
+                fields: ['city']
+            },
+            {
+                unique: false,
+                fields: ['social']
+            },
+            {
+                unique: false,
+                fields: ['status']
+            }
+        ],
         sequelize,
         freezeTableName: true
     });

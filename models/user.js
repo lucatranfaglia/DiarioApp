@@ -1,6 +1,8 @@
 'use strict';
+
 const {
-    Model
+    Model,
+    Deferrable
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
@@ -9,7 +11,20 @@ module.exports = (sequelize, DataTypes) => {
          * This method is not a part of DataTypes lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate(models) {}
+        static associate(models) {
+
+            // Uno User ha tante assenze
+            User.belongsTo(models.UserAuth, {
+                foreignKey: 'userAuthId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
+            User.belongsTo(models.Istituto, {
+                foreignKey: 'istitutoId',
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            });
+        }
     };
     User.init({
         id: {
@@ -20,11 +35,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         userAuthId: {
             type: DataTypes.BIGINT,
-            allowNull: false
+            allowNull: false,
         },
         istitutoId: {
             type: DataTypes.BIGINT,
-            allowNull: true
+            allowNull: true,
         },
         status: {
             type: DataTypes.ENUM('ACTIVE', 'SUSPENDED', 'DELETED'),
@@ -44,6 +59,25 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
     }, {
+        indexes: [{
+                unique: false,
+                fields: ['userAuthId']
+            }, {
+                unique: false,
+                fields: ['istitutoId']
+            },
+            {
+                unique: false,
+                fields: ['status']
+            },
+            {
+                unique: false,
+                fields: ['nickname']
+            }, {
+                unique: false,
+                fields: ['userAuthId', 'istitutoId', 'status']
+            }
+        ],
         sequelize,
         freezeTableName: true
     });

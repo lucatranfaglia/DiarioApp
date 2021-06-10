@@ -31,8 +31,7 @@ async function saveMateriaUser(userId, istitutoId = null, materiaId, professoreI
 
 /**
  * ADD - aggiungo una nuova Materia nel db
- * @param {string} istituto
- * @param {string} localita
+ * @param {nome} nome
  * @returns {object}
  */
 async function saveMateria({ nome }) {
