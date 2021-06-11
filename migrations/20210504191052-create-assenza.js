@@ -9,10 +9,12 @@ module.exports = {
                 type: Sequelize.BIGINT
             },
             userId: {
-                type: Sequelize.BIGINT
+                type: Sequelize.BIGINT,
+                allowNull: false,
             },
             data: {
-                type: Sequelize.DATE
+                type: DataTypes.DATEONLY,
+
             },
             createdAt: {
                 allowNull: false,

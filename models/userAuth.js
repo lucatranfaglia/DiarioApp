@@ -141,10 +141,6 @@ module.exports = (sequelize, DataTypes) => {
                 unique: false,
                 fields: ['social']
             },
-            {
-                unique: false,
-                fields: ['status']
-            }
         ],
         sequelize,
         freezeTableName: true

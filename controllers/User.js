@@ -1,5 +1,4 @@
-const Istituto = require('../models').Istituto;
-const User = require('../models').User;
+const { User, Istituto, Istruzione } = require('../models');
 
 /**
  * Ottengo info dello User tramite ID
@@ -58,6 +57,9 @@ async function saveUserChildren(userAuthId, { nickname, istitutoId, anno = null,
     }
 }
 
+// ---------------------------------------------------------------------
+// ---------------------------------------------------------------------
+// ---------------------------------------------------------------------
 
 /**
  * ADD - aggiungo un nuovo Istituto nel db e lo associa all'utente
@@ -65,9 +67,9 @@ async function saveUserChildren(userAuthId, { nickname, istitutoId, anno = null,
  * @param {string} citta
  * @returns {object}
  */
-async function saveIstituto({ istituto, citta }) {
+async function saveIstituto(istruzioneId, { istituto, citta }) {
     try {
-        return await Istituto.create({ istituto, citta });
+        return await Istituto.create({ istruzioneId, istituto, citta });
     } catch (error) {
         throw error;
     }
@@ -86,11 +88,44 @@ async function getIstituto() {
 }
 
 
+// ---------------------------------------------------------------------
+// ---------------------------------------------------------------------
+// ---------------------------------------------------------------------
+
+/**
+ * ADD - aggiungo un nuovo Istruzione nel db
+ * @param {string} istituto
+ * @param {string} citta
+ * @returns {object}
+ */
+async function saveIstruzione({ istruzione }) {
+    try {
+        return await Istruzione.create({ istruzione });
+    } catch (error) {
+        throw error;
+    }
+}
+
+/**
+ * SELECT - seleziono tutti i tipi di Istruzione presenti nel db
+ * @returns [object]
+ */
+async function getIstruzione() {
+    try {
+        return await Istruzione.findAll();
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     infoUser,
     saveUserLogin,
     saveUserChildren,
+
     saveIstituto,
-    getIstituto
+    getIstituto,
+
+    getIstruzione,
+    saveIstruzione
 }

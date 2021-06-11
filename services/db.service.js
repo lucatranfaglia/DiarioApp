@@ -32,7 +32,7 @@ sequelize.authenticate()
         console.error('Unable to connect to the database:', err);
     });
 
-sequelize.sync({ alter: true });
+sequelize.sync({ force: true });
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize
@@ -66,23 +66,24 @@ const { UserAuth } = require('../models');
 const { Istruzione } = require('../models');
 
 (async() => {
-    await Materia.sync({ alter: true });
-    await Istruzione.sync({ alter: true });
+    await Materia.sync({ force: true });
+    await Istruzione.sync({ force: true });
     await Istituto.sync({ force: true });
-    await Professore.sync({ alter: true });
-    await UserAuth.sync({ alter: true });
-    await User.sync({ alter: true });
-    await ProfessoreUser.sync({ alter: true });
-    await MateriaUser.sync({ alter: true });
-    await Assenza.sync({ alter: true });
-    await RiduzioneOrarioScolastico.sync({ alter: true });
-    await Avviso.sync({ alter: true });
-    await Ricevimento.sync({ alter: true });
-    await Recensione.sync({ alter: true });
-    await Submateria.sync({ alter: true });
-    await OrarioScolastico.sync({ alter: true });
-    await CompitiCasa.sync({ alter: true });
-    await MateriaVoti.sync({ alter: true });
+    await Professore.sync({ force: true });
+    await UserAuth.sync({ force: true });
+    await User.sync({ force: true });
+    await ProfessoreUser.sync({ force: true });
+    await MateriaUser.sync({ force: true });
+    await Assenza.sync({ force: true });
+    await RiduzioneOrarioScolastico.sync({ force: true });
+    await Avviso.sync({ force: true });
+    await Ricevimento.sync({ force: true });
+    await Recensione.sync({ force: true });
+    await Submateria.sync({ force: true });
+    await OrarioScolastico.sync({ force: true });
+    await CompitiCasa.sync({ force: true });
+    await MateriaVoti.sync({ force: true });
+
 })();
 
 module.exports = db
