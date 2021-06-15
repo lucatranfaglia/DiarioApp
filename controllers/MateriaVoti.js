@@ -82,6 +82,10 @@ async function getMateriaVoti(materiaVotiId) {
     }
 }
 
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+
 /**
  * SELECT - vengono selezionati tutti i voti di una materia, tramite materiaUserId
  * @param {bigint} materiaUserId 
@@ -98,6 +102,58 @@ async function getAllMateriaVoti(materiaUserId) {
         throw error;
     }
 }
+
+/**
+ * SELECT - vengono selezionati tutti i voti di una materia, tramite materiaUserId
+ * @param {bigint} materiaUserId 
+ * @returns [{object}]
+ */
+async function getAllMateriaVotiDetails(materiaUserId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                "User"."nickname",
+                "MateriaVoti"."tipologia",
+                "MateriaVoti"."voto",
+                "MateriaVoti"."data",
+                "MateriaVoti"."notifica",
+
+                "MateriaUser"."type",
+                "MateriaUser"."giustificazioni",
+                "MateriaUser"."crediti",
+
+                "Istituto"."istituto",
+                "Istituto"."citta",
+                "Materia"."nome" as nome_materia,
+                "Professore"."nome" as nome_professore,
+                "Professore"."cognome" as cognome_professore
+                FROM 
+                    "MateriaUser", 
+                    "MateriaVoti", 
+                    "User",
+                    "Istituto",
+                    "Materia",
+                    "Professore"
+                WHERE "MateriaVoti"."materiaUserId" = :materiaUserId
+                    AND "MateriaVoti"."materiaUserId" = "MateriaUser"."id"
+                    AND "MateriaUser"."userId" = "User"."id"
+                    AND "MateriaUser"."istitutoId" = "Istituto"."id"
+                    AND "MateriaUser"."materiaId" = "Materia"."id"
+                    AND "MateriaUser"."professoreId" = "Professore"."id"
+            `, {
+                replacements: { materiaUserId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 /**
  * SELECT - vengono selezionati tutti i voti di tutte le materia dell'utente, tramite userId
@@ -122,13 +178,66 @@ async function getAllUserMateriaVoti(userId) {
 }
 
 
+/**
+ * SELECT - vengono selezionati tutti i voti di tutte le materia dell'utente, tramite userId
+ * @param {bigint} userId 
+ * @returns {object}
+ */
+async function getAllUserMateriaVotiDetails(userId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                "User"."nickname",
+                "MateriaVoti"."tipologia",
+                "MateriaVoti"."voto",
+                "MateriaVoti"."data",
+                "MateriaVoti"."notifica",
+
+                "MateriaUser"."type",
+                "MateriaUser"."giustificazioni",
+                "MateriaUser"."crediti",
+
+                "Istituto"."istituto",
+                "Istituto"."citta",
+                "Materia"."nome" as nome_materia,
+                "Professore"."nome" as nome_professore,
+                "Professore"."cognome" as cognome_professore
+                FROM 
+                    "MateriaUser", 
+                    "MateriaVoti", 
+                    "User",
+                    "Istituto",
+                    "Materia",
+                    "Professore"
+                WHERE 
+                    "MateriaUser"."userId" =:userId 
+                    AND "MateriaVoti"."materiaUserId" = "MateriaUser"."id"
+                    AND "MateriaUser"."userId" = "User"."id"
+                    AND "MateriaUser"."istitutoId" = "Istituto"."id"
+                    AND "MateriaUser"."materiaId" = "Materia"."id"
+                    AND "MateriaUser"."professoreId" = "Professore"."id"
+            `, {
+                replacements: { userId: userId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 
 module.exports = {
+    // --------------------------------
     saveMateriaVoti,
     updateMateriaVoti,
     deleteMateriaVoti,
+    // --------------------------------    
     getMateriaVoti,
     getAllMateriaVoti,
-    getAllUserMateriaVoti
+    getAllMateriaVotiDetails,
+    // --------------------------------
+    getAllUserMateriaVoti,
+    getAllUserMateriaVotiDetails,
 }

@@ -1,5 +1,7 @@
 const { Assenza } = require('../models');
 
+const db = require('../services/db.service');
+
 /**
  * Assenza: inserimento di un nuovo Avvido nel db tramite UserId
  * @param {bigint} userId
@@ -55,6 +57,10 @@ async function deleteAssenza(assenzaId) {
     }
 }
 
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
+
 /**
  * SELECT - viene selezionato un Assenza tramite assenzaId
  * @param {bigint} assenzaId 
@@ -67,6 +73,38 @@ async function getAssenza(assenzaId) {
         throw error;
     }
 }
+
+
+/**
+ * SELECT - viene selezionato un Assenza tramite assenzaId
+ * @param {bigint} userId 
+ * @returns [{object}]
+ */
+async function getAssenzaDetails(assenzaId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                    "User"."nickname",
+                    "Assenza".*                    
+                FROM 
+                    "Assenza",
+                    "User"
+                WHERE 
+                    "Assenza"."id"=:assenzaId
+                    AND "User"."id"="Assenza"."userId"
+                `, {
+                replacements: { assenzaId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
+
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
 
 /**
  * SELECT - vengono selezionati tutti gli Assenze dell'utente, tramite userId
@@ -85,6 +123,32 @@ async function getAssenze(userId) {
     }
 }
 
+/**
+ * SELECT - vengono selezionati tutti gli Assenze dell'utente, tramite userId
+ * @param {bigint} userId 
+ * @returns {object}
+ */
+async function getAssenzeDetails(userId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                    "User"."nickname",
+                    "Assenza".*                    
+                FROM 
+                    "Assenza",
+                    "User"
+                WHERE 
+                    "Assenza"."userId"=:userId
+                    AND "User"."id"="Assenza"."userId"
+                `, {
+                replacements: { userId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 
@@ -92,6 +156,10 @@ module.exports = {
     saveAssenza,
     updateAssenza,
     deleteAssenza,
+
     getAssenza,
+    getAssenzaDetails,
+
     getAssenze,
+    getAssenzeDetails,
 }

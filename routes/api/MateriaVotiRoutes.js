@@ -8,7 +8,9 @@ const {
     deleteMateriaVoti,
     getMateriaVoti,
     getAllMateriaVoti,
-    getAllUserMateriaVoti
+    getAllMateriaVotiDetails,
+    getAllUserMateriaVoti,
+    getAllUserMateriaVotiDetails,
 } = require('../../controllers/MateriaVoti');
 
 // ------------------------------------------------------------------------------
@@ -98,6 +100,26 @@ router.get('/user/:userId/', async(req, res) => {
 })
 
 /**
+ * SELECT - vengono selezionati tutti i voti di tutte le materia dell'utente, tramite userId
+ * @param {bigint} userId 
+ * @returns [{object}]
+ */
+router.get('/user/:userId/details/', async(req, res) => {
+    try {
+        const userId = req.params.userId;
+        const listAllUserMateriaVoti = await getAllUserMateriaVotiDetails(userId);
+        res.status(listAllUserMateriaVoti ? 200 : 404).json(listAllUserMateriaVoti ? listAllUserMateriaVoti : "listAllUserMateriaVoti: not found!");
+
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+
+/**
  * SELECT - vengono selezionati tutti i voti di una materia, tramite materiaUserId
  * @param {bigint} materiaUserId 
  * @returns [{object}]
@@ -112,6 +134,26 @@ router.get('/materiaUser/:materiaUserId/', async(req, res) => {
         res.status(500).send(error.toString());
     }
 })
+
+/**
+ * SELECT - vengono selezionati tutti i voti di una materia, tramite materiaUserId
+ * @param {bigint} materiaUserId 
+ * @returns [{object}]
+ */
+router.get('/materiaUser/:materiaUserId/details/', async(req, res) => {
+    try {
+        const materiaUserId = req.params.materiaUserId;
+        const listAllMateriaVoti = await getAllMateriaVotiDetails(materiaUserId);
+        res.status(listAllMateriaVoti ? 200 : 404).json(listAllMateriaVoti ? listAllMateriaVoti : "listAllMateriaVoti: not found!");
+
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 /**
  * SELECT - viene selezionato un voto di una materia tramite materiaVotiId

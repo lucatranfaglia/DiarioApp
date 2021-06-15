@@ -6,8 +6,12 @@ const {
     saveAssenza,
     updateAssenza,
     deleteAssenza,
+
     getAssenza,
+    getAssenzaDetails,
+
     getAssenze,
+    getAssenzeDetails,
 } = require('../../controllers/Assenza');
 
 // ------------------------------------------------------------------------------
@@ -72,6 +76,7 @@ router.delete('/:assenzaId/delete/', async(req, res) => {
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 
+// ASSENZA: tutte le Assenze di un utente
 router.get('/user/:userId/', async(req, res) => {
     try {
         const userId = req.params.userId;
@@ -83,11 +88,40 @@ router.get('/user/:userId/', async(req, res) => {
     }
 })
 
+// ASSENZA: tutte le Assenze di un utente, nel dettaglio
+router.get('/user/:userId/details/', async(req, res) => {
+    try {
+        const userId = req.params.userId;
+        const listAssenze = await getAssenzeDetails(userId);
+        res.status(listAssenze ? 200 : 404).json(listAssenze ? listAssenze : "listAssenze: not found!");
+
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+
+// ASSENZA: singola Assenza
 router.get('/:assenzaId/', async(req, res) => {
     try {
         const assenzaId = req.params.assenzaId;
         const listAssenza = await getAssenza(assenzaId);
         res.status(listAssenza ? 200 : 404).json(listAssenza ? listAssenza : "listAssenza: not found!");
+
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
+// ASSENZA: singola Assenza nel dettaglio
+router.get('/:assenzaId/details/', async(req, res) => {
+    try {
+        const assenzaId = req.params.assenzaId;
+        const listAssenza = await getAssenzaDetails(assenzaId);
+        res.status(listAssenza[0] ? 200 : 404).json(listAssenza[0] ? listAssenza[0] : "listAssenza: not found!");
 
     } catch (error) {
         res.status(500).send(error.toString());
