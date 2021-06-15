@@ -18,7 +18,7 @@ const controllerAuthGoogle = async(data) => {
         }
 
         // ottengo l'ID (UserAuths)
-        const authGoogle = await SaveUserGoogle(idtoken);
+        const authGoogle = await saveUserGoogle(idtoken);
 
         console.log("authGoogle: ", authGoogle);
         const id = authGoogle.id;
@@ -38,7 +38,7 @@ const controllerAuthGoogle = async(data) => {
  * Save UserAuth with Google
  * @param {int} idtoken
  */
-const SaveUserGoogle = async(idtoken) => {
+const saveUserGoogle = async(idtoken) => {
     try {
         const ticket = await client.verifyIdToken({
             idToken: idtoken,
@@ -92,7 +92,7 @@ const SaveUserGoogle = async(idtoken) => {
             return { id, name };
         }
     } catch (error) {
-        console.log("Error SaveUserGoogle: ", error)
+        console.log("Error saveUserGoogle: ", error)
         return error;
     }
 }
@@ -100,5 +100,6 @@ const SaveUserGoogle = async(idtoken) => {
 
 
 module.exports = {
-    controllerAuthGoogle
+    controllerAuthGoogle,
+    saveUserGoogle
 }

@@ -2,8 +2,8 @@ const { Router } = require('express');
 const router = Router();
 
 const { controllerAuthTwitter, controllerAuthTwitterAuthorize, controllerAuthTwitterAuthenticate } = require('../controllers/TwitterController');
-const { controllerAuthFacebook } = require('../controllers/FacebookController');
-const { controllerAuthGoogle } = require('../controllers/GoogleController');
+const { controllerAuthFacebook, saveUserFacebook } = require('../controllers/FacebookController');
+const { controllerAuthGoogle, saveUserGoogle } = require('../controllers/GoogleController');
 const { controllerAuthApple } = require('../controllers/AppleController');
 const { controllerAuthTwitch } = require('../controllers/TwitchController');
 
@@ -21,10 +21,55 @@ router.post('/facebook', async function(req, res, next) {
     }
 });
 
+/**
+ * Save User with Facebook
+ * @param {string} social
+ * @param {string} social_id
+ * @param {string} name
+ */
+router.post('/facebook/:dataUser/', async function(req, res, next) {
+    try {
+        const data = req.params.dataUser;
+
+        const result = await saveUserFacebook(data);
+        res.status(result ? 200 : 404).json(result ? "facebook: aggiunto. " : "Error facebook: " + result)
+
+    } catch (error) {
+        res.status(500).send("Error oauth facebook: " + error);
+    }
+});
+
 
 router.post('/google', async function(req, res, next) {
     try {
         const result = await controllerAuthGoogle(req.body);
+        if (result) {
+            if (result[0]) {
+                res.status(result[0] ? 200 : 404).json(result[0] ? result[0] : "Error google result")
+            } else {
+                res.status(result ? 200 : 404).json(result ? result : "Error google")
+            }
+        } else {
+            console.log(new Error('Error login google'));
+            next(new Error('Error login google')); //pass to error handler
+        }
+    } catch (error) {
+        console.log("Error:", error);
+        res.status(500).send("Error oauth google: " + error);
+    }
+});
+
+
+/**
+ * Save UserAuth with Google
+ * @param {int} idtoken
+ */
+router.post('/google/:token/', async function(req, res, next) {
+    try {
+
+        const tokenGoogle = req.params.token;
+
+        const result = await saveUserGoogle(tokenGoogle);
         if (result) {
             if (result[0]) {
                 res.status(result[0] ? 200 : 404).json(result[0] ? result[0] : "Error google result")

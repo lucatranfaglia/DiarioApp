@@ -1,8 +1,14 @@
-const Professore = require('../models').Professore;
-const ProfessoreUser = require('../models').ProfessoreUser;
+const {
+    Professore,
+    ProfessoreUser,
+    Ricevimento,
+    Recensione,
+    Istituto,
+    Istruzione,
+    User,
+    MateriaUser
+} = require('../models');
 
-const Ricevimento = require('../models/').Ricevimento;
-const Recensione = require('../models/').Recensione;
 
 const db = require('../services/db.service');
 
@@ -13,12 +19,12 @@ const db = require('../services/db.service');
  * @param {bigint} professoreId
  * @returns {object}
  */
-async function saveProfessoreUser(istitutoId, userId, materiaId, professoreId) {
+async function saveProfessoreUser(istitutoId, userId, materiaUserId, professoreId) {
     try {
         return await ProfessoreUser.create({
             userId,
             istitutoId,
-            materiaId,
+            materiaUserId,
             professoreId
         });
     } catch (error) {
@@ -49,6 +55,10 @@ async function saveProfessore(istitutoId, { nome = null, cognome = null, email =
     }
 }
 
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+
 /**
  * SELECT - seleziono tutti i prof. presenti nel db
  * @returns [object]
@@ -61,7 +71,234 @@ async function getProfessori() {
     }
 }
 
+/**
+ * SELECT - seleziono tutti i prof.  con il dettaglio dell'istituto e istruzione della scuola
+ * @returns [{object}]
+ */
+async function getProfessoriDetails() {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                    "Professore"."id" as professoreId,
+                    "Professore"."nome",
+                    "Professore"."cognome",
+                    "Professore"."email",
+                    "Professore"."telefono",
+                    "Istruzione"."istruzione",
+                    "Istituto"."istituto",
+                    "Istituto"."citta"
+                FROM 
+                    "Professore",
+                    "Istituto",
+                    "Istruzione"
+                WHERE "Istituto"."id"="Professore"."istitutoId"
+                    AND "Istruzione"."id"="Istituto"."istruzioneId"
+                `, {
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
 
+/**
+ * SELECT - seleziono tutti i prof. con il dettaglio dell'istituto tramite professoreId
+ * @param {bigint} professoreId
+ * @returns [{object}]
+ */
+async function getProfessoreDetails(professoreId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                    "Professore"."id" as professoreId,
+                    "Professore"."nome",
+                    "Professore"."cognome",
+                    "Professore"."email",
+                    "Professore"."telefono",
+                    "Istruzione"."istruzione",
+                    "Istituto"."istituto",
+                    "Istituto"."citta"
+                FROM 
+                    "Professore",
+                    "Istituto",
+                    "Istruzione"
+                WHERE 
+                    "Professore"."id"=:professoreId
+                    AND "Istituto"."id"="Professore"."istitutoId"
+                    AND "Istruzione"."id"="Istituto"."istruzioneId"
+                `, {
+                replacements: { professoreId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
+
+// ------------------------------------------------------------------------------------------------------------
+
+/**
+ * SELECT - seleziono tutti i prof. dell'utente, tramite userId
+ * @param {bigint} userId
+ * @returns [{object}]
+ */
+async function getProfessoreUser(professoreUserId) {
+    try {
+        return await ProfessoreUser.findAll({
+            where: {
+                professoreUserId
+            }
+        });
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+/**
+ * SELECT - seleziono tutti i prof. dell'utente nel dettaglio, tramite userId
+ * @param {bigint} userId
+ * @returns [{object}]
+ */
+async function getProfessoreUserDetails(professoreUserId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                    "User"."nickname",
+                    "ProfessoreUser".*,
+                    "Professore"."nome",
+                    "Professore"."cognome",
+                    "Professore"."email",
+                    "Professore"."telefono",
+                    "Istruzione"."istruzione",
+                    "Istituto"."istituto",
+                    "Istituto"."citta"
+                FROM 
+                    "ProfessoreUser",
+                    "Istituto",
+                    "Istruzione",
+                    "User",
+                    "MateriaUser",
+                    "Professore"
+                WHERE 
+                    "ProfessoreUser"."id"=:professoreUserId
+                    AND "Istituto"."id"="ProfessoreUser"."istitutoId"
+                    AND "Istruzione"."id"="Istituto"."istruzioneId"
+                    AND "User"."id"="ProfessoreUser"."userId"
+                    AND "MateriaUser"."id"="ProfessoreUser"."materiaUserId"
+                    AND "Professore"."id"="ProfessoreUser"."professoreId"
+
+                `, {
+                replacements: { professoreUserId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+// ------------------------------------------------------------------------------------------------------------
+
+/**
+ * SELECT - seleziono tutti i prof. dell'utente, tramite userId
+ * @param {bigint} userId
+ * @returns [{object}]
+ */
+async function getProfessoreUserByUserId(userId) {
+    try {
+
+        return await ProfessoreUser.findAll({
+            where: {
+                userId
+            }
+        });
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
+
+/**
+ * SELECT - seleziono tutti i prof. dell'utente nel dettaglio, tramite userId
+ * @param {bigint} userId
+ * @returns [{object}]
+ */
+async function getProfessoreUserByUserIdDetails(userId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                    "User"."nickname",
+                    "Istruzione"."istruzione",
+                    "Istituto"."istituto",
+                    "Istituto"."citta",
+                    "Materia"."nome" as nome_materia,
+                    "Professore"."nome" as nome_professore,
+                    "Professore"."cognome" as cognome_professore,
+                    "Professore"."email",
+                    "Professore"."telefono"
+                FROM 
+                    "ProfessoreUser",
+                    "Istituto",
+                    "Istruzione",
+                    "User",
+                    "MateriaUser",
+                    "Materia",
+                    "Professore"
+                WHERE 
+                    "ProfessoreUser"."userId"=:userId
+                    AND "Istituto"."id"="ProfessoreUser"."istitutoId"
+                    AND "Istruzione"."id"="Istituto"."istruzioneId"
+                    AND "User"."id"="ProfessoreUser"."userId"
+                    AND "MateriaUser"."id"="ProfessoreUser"."materiaUserId"
+                    AND "MateriaUser"."materiaId"="Materia"."id"
+                    AND "Professore"."id"="ProfessoreUser"."professoreId"
+
+                `, {
+                replacements: { userId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
+
+/**
+ * SELECT - seleziono tutti i prof. dell'utente nel dettaglio, tramite userId
+ * @param {bigint} userId
+ * @returns [{object}]
+ */
+async function getProfessoreUserByUserIdDetails_v2(userId) {
+    try {
+        return await ProfessoreUser.findAll({
+            where: {
+                userId
+            },
+            include: [{
+                model: Istituto,
+                required: false
+            }, {
+                model: User,
+                required: false
+            }, {
+                model: MateriaUser,
+                required: false
+            }, {
+                model: Professore,
+                required: false
+            }]
+        });
+    } catch (error) {
+        throw error;
+    }
+}
 // ------------------------------------------------------------------------------------------------------------
 // ------------ RICEVIMENTO -----------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -260,17 +497,29 @@ async function getProfessoreRecensioneIdById(recensioneId) {
 }
 
 module.exports = {
-    getProfessori,
     saveProfessore,
     saveProfessoreUser,
+    getProfessori,
+    getProfessoriDetails,
+    getProfessoreDetails,
+
+
+    // -------------------------------
+    getProfessoreUser,
+    getProfessoreUserDetails,
+
+
+    getProfessoreUserByUserId,
+    getProfessoreUserByUserIdDetails,
+    // -------------------------------
+
     saveProfessoreRicevimento,
-
     updateProfessoreRicevimento,
-
     getProfessoreRicevimento,
     getProfessoriRicevimentoByUserId,
     getProfessoreRicevimentoById,
 
+    // -------------------------------
 
     saveProfessoreRecensione,
     updateProfessoreRecensione,

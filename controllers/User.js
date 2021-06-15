@@ -22,7 +22,7 @@ async function infoUser(id) {
  */
 async function saveUserLogin(id, name) {
     try {
-        console.log("test : ", id, name);
+
         return await User.create({
             userAuthId: id,
             nickname: name

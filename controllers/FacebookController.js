@@ -10,7 +10,8 @@ const controllerAuthFacebook = async(user) => {
         if (!user) {
             throw new Error('Facebook info not found!');
         }
-        return await SaveUserFacebook(user.data);
+        console.log("Data FB: ", user)
+        return await saveUserFacebook(user.data);
     } catch (error) {
         console.log("Facebook auth:", error);
         throw new Error("Facebook auth ", error);
@@ -20,27 +21,26 @@ const controllerAuthFacebook = async(user) => {
 
 /**
  * Save User with Facebook
- * 
- * @param {object} users
+ * @param {string} social
+ * @param {string} social_id
+ * @param {string} name
  */
-const SaveUserFacebook = async(users) => {
+const saveUserFacebook = async({ social_id, name, social }) => {
     try {
 
-        const social_id = users.social_id;
-        const social = users.social;
-        const name = users.name;
+
         const user = await UserAuth.findOne({
             where: {
-                name,
+                social_id,
                 social
             }
         })
         if (user) {
             return await UserAuth.update({
-                social_id,
+                name
             }, {
                 where: {
-                    name,
+                    social_id,
                     social
                 }
             })
@@ -52,12 +52,13 @@ const SaveUserFacebook = async(users) => {
             })
         }
     } catch (error) {
-        console.log("Error SaveUserFacebook: ", error)
-        return error;
+        console.log("Error saveUserFacebook: ", error)
+        throw error;
     }
 }
 
 
 module.exports = {
-    controllerAuthFacebook
+    controllerAuthFacebook,
+    saveUserFacebook
 }

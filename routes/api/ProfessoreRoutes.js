@@ -4,24 +4,59 @@ const router = Router();
 const { infoUser } = require('../../controllers/User');
 
 const {
-    getProfessori,
     saveProfessoreUser,
     saveProfessore,
+    getProfessori,
+    getProfessoriDetails,
+    getProfessoreDetails,
+
+    // -------------------------------
+    getProfessoreUser,
+    getProfessoreUserDetails,
+
+    getProfessoreUserByUserId,
+    getProfessoreUserByUserIdDetails,
+
+    // -------------------------------
     saveProfessoreRicevimento,
-
     updateProfessoreRicevimento,
-
     getProfessoreRicevimento,
     getProfessoriRicevimentoByUserId,
     getProfessoreRicevimentoById,
 
-    getProfessoreRecensioni,
+    // -------------------------------
     saveProfessoreRecensione,
     updateProfessoreRecensione,
-
+    getProfessoreRecensioni,
     getProfessoreRecensioneIdById
 
 } = require('../../controllers/Professore');
+
+
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// --------------------- PROFESSORE ---------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+/**
+ * Professore: aggiungo un nuovo professore nel db (tramite UserId)
+ * @param {bigint} istitutoId
+ */
+router.post('/istituto/:istitutoId/new/', async(req, res) => {
+    try {
+
+        const istitutoId = req.params.istitutoId;
+
+        // Salvo una nuova materiaUser
+        const newProfessore = await saveProfessore(istitutoId, req.body);
+
+        res.status(newProfessore ? 200 : 404).json(newProfessore ? newProfessore : "newProfessore: not found!")
+
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
 
 /**
  * Professore: lista dei professori
@@ -39,30 +74,44 @@ router.get('/professori/', async(req, res) => {
     }
 })
 
-// ------------------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------
-
-
 /**
- * Professore: aggiungo un nuovo professore nel db (tramite UserId)
+ * Professore: lista dei professori
  * @param {bigint} userId
  */
-router.post('/new/:userId/', async(req, res) => {
+router.get('/professori/details/', async(req, res) => {
     try {
 
-        const userId = req.params.userId;
-        // ottengo l'istitutoId dal userId
-        const { istitutoId } = await infoUser(userId);
+        // lista dei professori nel dettaglio
+        const listProfessori = await getProfessoriDetails();
 
-        // Salvo una nuova materiaUser
-        const newProfessore = await saveProfessore(istitutoId, req.body);
-
-        res.status(newProfessore ? 200 : 404).json(newProfessore ? newProfessore : "newProfessore: not found!")
+        res.status(listProfessori ? 200 : 404).json(listProfessori ? listProfessori : "listProfessori: not found!")
     } catch (error) {
         res.status(500).send(error.toString());
     }
 })
+
+/**
+ * Professore: lista di uno professore nel dettagio
+ * @param {bigint} professoreId
+ */
+router.get('/professore/:professoreId/details/', async(req, res) => {
+    try {
+
+        const professoreId = req.params.professoreId;
+        // lista dei professori
+        const listProfessoreDetails = await getProfessoreDetails(professoreId);
+
+        res.status(listProfessoreDetails[0] ? 200 : 404).json(listProfessoreDetails[0] ? listProfessoreDetails[0] : "listProfessoreDetails: not found!")
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
+
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------ PROFESSORE USER -------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 
 /**
  * ProfessoreUser: aggiungo un collegamento tra professore e materia (dell'utente)
@@ -70,18 +119,18 @@ router.post('/new/:userId/', async(req, res) => {
  * @param {bigint} materiaId
  * @param {bigint} professoreId
  */
-router.post('/new/:userId/:materiaId/:professoreId/', async(req, res) => {
+router.post('/user/:userId/materia/:materiaUserId/professore/:professoreId/new/', async(req, res) => {
     try {
 
         const userId = req.params.userId;
-        const materiaId = req.params.materiaId;
+        const materiaUserId = req.params.materiaUserId;
         const professoreId = req.params.professoreId;
 
         // ottengo l'istitutoId dal userId
         const { istitutoId } = await infoUser(userId);
 
         // Salvo una nuova materiaUser
-        const newProfessoreUser = await saveProfessoreUser(istitutoId, userId, materiaId, professoreId);
+        const newProfessoreUser = await saveProfessoreUser(istitutoId, userId, materiaUserId, professoreId);
 
         res.status(newProfessoreUser ? 200 : 404).json(newProfessoreUser ? newProfessoreUser : "newProfessoreUser: not found!")
     } catch (error) {
@@ -89,10 +138,84 @@ router.post('/new/:userId/:materiaId/:professoreId/', async(req, res) => {
     }
 })
 
-// ------------------------------------------------------------------------------------------------------------
-// -------------------- RICEVIMENTO ---------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------
+/**
+ * ProfessoreUser: lista di uno professore nel dettagio
+ * @param {bigint} professoreId
+ */
+router.get('/professoreUser/:professoreUserId/details/', async(req, res) => {
+    try {
 
+        const professoreUserId = req.params.professoreUserId;
+        // lista dei professori
+        const listProfessoreUserDetails = await getProfessoreUserDetails(professoreUserId);
+
+        res.status(listProfessoreUserDetails[0] ? 200 : 404).json(listProfessoreUserDetails[0] ? listProfessoreUserDetails[0] : "listProfessoreUserDetails: not found!")
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+/**
+ * ProfessoreUser: lista di uno professore nel dettagio
+ * @param {bigint} professoreId
+ */
+router.get('/professoreUser/:professoreUserId/', async(req, res) => {
+    try {
+
+        const professoreUserId = req.params.professoreUserId;
+        // lista dei professori
+        const listProfessoreUser = await getProfessoreUser(professoreUserId);
+
+        res.status(listProfessoreUser[0] ? 200 : 404).json(listProfessoreUser[0] ? listProfessoreUser[0] : "listProfessoreUser: not found!")
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+
+/**
+ * ProfessoreUser: lista dei professori dell'utente nel dettagio
+ * @param {bigint} userId
+ */
+router.get('/user/:userId/details/', async(req, res) => {
+    try {
+
+        const userId = req.params.userId;
+        // lista dei professori
+        const listProfessoreUserDetails = await getProfessoreUserByUserIdDetails(userId);
+
+        res.status(listProfessoreUserDetails ? 200 : 404).json(listProfessoreUserDetails ? listProfessoreUserDetails : "listProfessoreUserDetails: not found!")
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+/**
+ * ProfessoreUser: lista dei professori dell'utente
+ * @param {bigint} userId
+ */
+router.get('/user/:userId/', async(req, res) => {
+    try {
+
+        const userId = req.params.userId;
+        // lista dei professori
+        const listProfessoreUser = await getProfessoreUserByUserId(userId);
+
+        res.status(listProfessoreUser ? 200 : 404).json(listProfessoreUser ? listProfessoreUser : "listProfessoreUser: not found!")
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------- PROFESSORE RICEVIMENTO -----------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 /**
  * ProfessoreRicevimento: lista di ricevimento di tutti i prof. di un utente
  * @param {bigint} userId
@@ -109,8 +232,6 @@ router.get('/:userId/ricevimenti/', async(req, res) => {
         res.status(500).send(error.toString());
     }
 })
-
-// ------------------------------------------------------------------------------------------------------------
 
 /**
  * ProfessoreRicevimento: lista di ricevimento rispetto ad UN professore
@@ -146,8 +267,6 @@ router.post('/:professoreId/ricevimento/new/', async(req, res) => {
     }
 })
 
-// ------------------------------------------------------------------------------------------------------------
-
 /**
  * ProfessoreRicevimento: modifico il ricevimento del prof. tramite ricevimentoId
  * @param {bigint} ricevimentoId
@@ -172,10 +291,13 @@ router.put('/:ricevimentoId/ricevimento/update/', async(req, res) => {
     }
 })
 
-// -----------------------------------------------------------------------------------------------------------
-// -------------------- RECENSIONE ---------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------
 
+
+// ------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------
+// -------------------- PROFESSORE RECENSIONE ----------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 /**
  * Recensione: lista delle recensioni di UN professore
  * @param {bigint} professoreId

@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
 
-            // Uno User ha tante assenze
+
             User.belongsTo(models.UserAuth, {
                 foreignKey: 'userAuthId',
                 onUpdate: 'CASCADE',
