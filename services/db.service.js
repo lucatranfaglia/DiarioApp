@@ -37,33 +37,26 @@ sequelize.sync({ force: true });
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
-
-
-
-
-
-
-
-const { Assenza } = require('../models');
-const { Avviso } = require('../models');
-const { CompitiCasa } = require('../models');
-const { Istituto } = require('../models');
-const { Materia } = require('../models');
-
-const { MateriaUser } = require('../models');
-
-const { MateriaVoti } = require('../models');
-const { OrarioScolastico } = require('../models');
-const { Professore } = require('../models');
-const { ProfessoreUser } = require('../models');
-const { Recensione } = require('../models');
-const { Ricevimento } = require('../models');
-const { RiduzioneOrarioScolastico } = require('../models');
-const { Submateria } = require('../models');
-const { User } = require('../models');
-const { UserAuth } = require('../models');
-
-const { Istruzione } = require('../models');
+const {
+    Assenza,
+    Avviso,
+    CompitiCasa,
+    Istituto,
+    Materia,
+    MateriaUser,
+    MateriaVoti,
+    OrarioScolastico,
+    Professore,
+    ProfessoreUser,
+    Recensione,
+    Ricevimento,
+    RiduzioneOrarioScolastico,
+    Submateria,
+    User,
+    UserAuth,
+    Istruzione,
+    Pagella
+} = require('../models');
 
 (async() => {
     // await Materia.sync({ force: true })
@@ -138,6 +131,8 @@ const { Istruzione } = require('../models');
     // await OrarioScolastico.sync({ force: true });
     // await CompitiCasa.sync({ force: true });
     // await MateriaVoti.sync({ force: true });
+
+    // await Pagella.sync({ force: true });
 
 })();
 

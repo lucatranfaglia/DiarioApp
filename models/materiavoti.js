@@ -45,38 +45,47 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        status: {
+            type: DataTypes.ENUM("active", "archived"),
+            allowNull: false,
+        },
     }, {
         indexes: [{
-            unique: false,
-            fields: ['materiaUserId']
-        }, {
-            unique: false,
-            fields: ['tipologia']
-        }, {
-            unique: false,
-            fields: ['voto']
-        }, {
-            unique: false,
-            fields: ['data']
-        }, {
-            unique: false,
-            fields: ['materiaUserId', 'tipologia']
-        }, {
-            unique: false,
-            fields: ['materiaUserId', 'voto']
-        }, {
-            unique: false,
-            fields: ['materiaUserId', 'data']
-        }, {
-            unique: false,
-            fields: ['materiaUserId', 'tipologia', 'data']
-        }, {
-            unique: false,
-            fields: ['materiaUserId', 'tipologia', 'voto']
-        }, , {
-            unique: false,
-            fields: ['materiaUserId', 'tipologia', 'voto', 'data']
-        }],
+                unique: false,
+                fields: ['materiaUserId']
+            }, {
+                unique: false,
+                fields: ['tipologia']
+            }, {
+                unique: false,
+                fields: ['voto']
+            }, {
+                unique: false,
+                fields: ['data']
+            },
+            {
+                unique: false,
+                fields: ['status']
+            }, {
+                unique: false,
+                fields: ['materiaUserId', 'tipologia']
+            }, {
+                unique: false,
+                fields: ['materiaUserId', 'voto']
+            }, {
+                unique: false,
+                fields: ['materiaUserId', 'data']
+            }, {
+                unique: false,
+                fields: ['materiaUserId', 'tipologia', 'data']
+            }, {
+                unique: false,
+                fields: ['materiaUserId', 'tipologia', 'voto']
+            }, , {
+                unique: false,
+                fields: ['materiaUserId', 'tipologia', 'voto', 'data', 'status']
+            }
+        ],
         sequelize,
         freezeTableName: true
     });

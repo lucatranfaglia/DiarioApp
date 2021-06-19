@@ -11,6 +11,7 @@ const {
     getAllMateriaVotiDetails,
     getAllUserMateriaVoti,
     getAllUserMateriaVotiDetails,
+    getMateriaVotiByUserId,
 } = require('../../controllers/MateriaVoti');
 
 // ------------------------------------------------------------------------------

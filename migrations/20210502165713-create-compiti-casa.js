@@ -21,7 +21,7 @@ module.exports = {
                 allowNull: false,
             },
             stato: {
-                type: Sequelize.ENUM("nuovo", "dacompletare", "completato"),
+                type: Sequelize.ENUM("dacompletare", "completato"),
                 allowNull: false,
             },
             testo: {

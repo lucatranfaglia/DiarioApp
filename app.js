@@ -115,7 +115,7 @@ class Server {
         this.app.use('/orario', require('./routes/api/OrarioScolasticoRoutes'));
         this.app.use('/submateria', require('./routes/api/SubMateriaRoutes'));
 
-
+        this.app.use('/pagella', require('./routes/api/PagellaRoutes'));
 
         this.app.use('/view', require('./routes/api/ViewRoutes'));
     }

@@ -26,8 +26,15 @@ sequelize db:migrate --to 20210503180315-create-materia.js
 sequelize db:migrate --to 20210502165713-create-compiti-casa.js
 
 
+# create new model
+npx sequelize-cli model:generate --name Pagella --attributes id:bigint,userId:bigint,nome:string,infoVoti:array
 
-npx sequelize-cli model:generate --name Istruzione --attributes id:bigint,istruzione:string
+
+id: bigint
+userId: bigint
+nome: string
+infoVoti
+
 
 
 # Foreign Keys

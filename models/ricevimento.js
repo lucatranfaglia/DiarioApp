@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         giorno: {
-            type: DataTypes.ENUM('Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'),
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         ora_inizio: {

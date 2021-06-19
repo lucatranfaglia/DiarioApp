@@ -9,16 +9,18 @@ const db = require('../services/db.service');
  * @param {float} voto
  * @param {date} data
  * @param {integer} notifica
+ * @param {enum} status
  * @returns {object}
  */
-async function saveMateriaVoti(materiaUserId, { tipologia = 'scritto', voto = null, data = null, notifica = null }) {
+async function saveMateriaVoti(materiaUserId, { tipologia = 'scritto', voto = null, data = null, notifica = null, status = 'active' }) {
     try {
         return await MateriaVoti.create({
             materiaUserId: materiaUserId,
             tipologia,
             voto,
             data,
-            notifica
+            notifica,
+            status
         });
     } catch (error) {
         throw error;
@@ -32,15 +34,17 @@ async function saveMateriaVoti(materiaUserId, { tipologia = 'scritto', voto = nu
  * @param {float} voto
  * @param {date} data
  * @param {integer} notifica
+ * @param {enum} status
  * @returns [ 0 | 1]
  */
-async function updateMateriaVoti(materiaVotiId, { tipologia, voto, data, notifica, }) {
+async function updateMateriaVoti(materiaVotiId, { tipologia, voto, data, notifica, status }) {
     try {
         return await MateriaVoti.update({
             tipologia,
             voto,
             data,
-            notifica
+            notifica,
+            status
         }, {
             where: {
                 id: materiaVotiId
@@ -227,6 +231,40 @@ async function getAllUserMateriaVotiDetails(userId) {
 }
 
 
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+/**
+ * NUOVA PAGELLA - vengono selezionati tutti i voti di tutte le materia dell'utente e salvati in un array e inseriti in Pagella
+ * @param {bigint} userId 
+ * @returns {object}
+ */
+async function getMateriaVotiByUserId(userId) {
+    try {
+        return await db.sequelize.query(
+            `SELECT 
+                "Materia"."nome",
+                "MateriaUser"."userId",
+                "MateriaUser"."materiaId",
+                "MateriaUser"."crediti",
+                "MateriaVoti".*
+            FROM 
+                "Materia",
+                "MateriaUser", 
+                "MateriaVoti"
+            WHERE 
+                "MateriaUser"."userId" =:userId 
+                AND "MateriaVoti"."materiaUserId" = "MateriaUser"."id"
+                AND "MateriaUser"."materiaId" = "Materia"."id"
+            `, {
+                replacements: { userId: userId },
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     // --------------------------------
@@ -240,4 +278,7 @@ module.exports = {
     // --------------------------------
     getAllUserMateriaVoti,
     getAllUserMateriaVotiDetails,
+
+    // --------------------------------
+    getMateriaVotiByUserId
 }

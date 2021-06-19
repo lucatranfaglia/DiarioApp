@@ -13,7 +13,7 @@ module.exports = {
                 allowNull: false,
             },
             giorno: {
-                type: Sequelize.ENUM('Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'),
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             ora_inizio: {

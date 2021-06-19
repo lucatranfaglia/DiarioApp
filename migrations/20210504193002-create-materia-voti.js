@@ -28,6 +28,10 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
+            tatus: {
+                type: Sequelize.ENUM("active", "archived"),
+                allowNull: false,
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
